@@ -1,7 +1,35 @@
 import Link from 'next/link';
 import Image from 'next/image';
-
+import React, { useState } from 'react';
+ 
 const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+ 
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    setStatus('');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setStatus('success');
+        setEmail('');
+      } else {
+        setStatus(data.error || 'Subscription failed.');
+      }
+    } catch {
+      setStatus('Subscription failed.');
+    }
+    setLoading(false);
+  };
+ 
   return (
     <footer className="bg-white dark:bg-muted border-t border-[#0066FF]/10 py-12">
       <div className="container mx-auto px-8 sm:px-6 lg:px-8">
@@ -13,7 +41,7 @@ const Footer = () => {
              <Image src="/Fizoval.png" alt="Example" width={150} height={200} />
             </Link>
           </div>
-            
+           
             <p className="text-gray-600 mb-4">
             Helping you navigate the rapidly evolving world of AI tools and technologies.
             </p>
@@ -39,42 +67,63 @@ const Footer = () => {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
-          <div>
-            <h3 className="text-lg font-bold mb-4 text-[#0066FF]">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="text-gray-600 hover:text-[#0066FF] transition-colors">Home</Link></li>
-              <li><Link href="#" className="text-gray-600 hover:text-[#0066FF] transition-colors">Categories</Link></li>
-              <li><Link href="#" className="text-gray-600 hover:text-[#0066FF] transition-colors">Blog</Link></li>
-              <li><Link href="#" className="text-gray-600 hover:text-[#0066FF] transition-colors">About Us</Link></li>
-
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-bold mb-4 text-[#0066FF]">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><Link href="#" className="text-gray-600 hover:text-[#0066FF] transition-colors">Privacy Policy</Link></li>
-              <li><Link href="#" className="text-gray-600 hover:text-[#0066FF] transition-colors">Terms & Conditions</Link></li>
-              <li><Link href="#" className="text-gray-600 hover:text-[#0066FF] transition-colors">Affiliate Disclosure</Link></li>
-
-            </ul>
-          </div>
+            <div>
+              <h3 className="text-lg font-bold mb-4 text-[#0066FF]">Quick Links</h3>
+              <ul className="space-y-2">
+                <li><Link href="/" className="text-gray-600 hover:text-[#0066FF] transition-colors">Home</Link></li>
+                <li><Link href="/categories" className="text-gray-600 hover:text-[#0066FF] transition-colors">Categories</Link></li>
+                <li><Link href="/blog" className="text-gray-600 hover:text-[#0066FF] transition-colors">Blog</Link></li>
+                <li><Link href="/about" className="text-gray-600 hover:text-[#0066FF] transition-colors">About</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-bold mb-4 text-[#0066FF]">Quick Links</h3>
+              <ul className="space-y-2">
+                <li><Link href="/terms-and-conditions" className="text-gray-600 hover:text-[#0066FF] transition-colors">Terms & Conditions</Link></li>
+                <li><Link href="/privacy-policy" className="text-gray-600 hover:text-[#0066FF] transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/affiliate-disclosure" className="text-gray-600 hover:text-[#0066FF] transition-colors">Affiliate Disclosure</Link></li>
+              </ul>
+            </div>
           </div>
           <div>
             <h3 className="text-xl font-bold mb-4 text-[#0066FF]"> Stay Updated on AI Trends</h3>
             <p className="text-gray-600 mb-4">
               Subscribe to our newsletter to receive the latest updates, tutorials, and insights about AI tools.
-            </p><div className="max-w-md mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="px-4 py-3 rounded-lg flex-1 bg-blue-50 border border-blue-100 outline-[#0066FF] text-blue-600  font-sen"
-              />
-              <button className="text-white bg-blue-600 font-medium font-sen py-3 px-6 rounded-lg transition-colors">
-                Subscribe
-              </button>
-            </div>
+            </p>
+            <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  placeholder="Your email address"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  required
+                  className="px-4 py-3 rounded-lg flex-1 bg-blue-50 border border-blue-100 outline-[#0066FF] text-blue-600 font-sen"
+                  disabled={loading}
+                />
+                <button
+                  type="submit"
+                  className={`text-white bg-blue-600 font-medium font-sen py-3 px-6 rounded-lg transition-transform duration-100 active:scale-95 flex items-center justify-center ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <svg className="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                    </svg>
+                  ) : null}
+                  {loading ? 'Subscribing...' : 'Subscribe'}
+                </button>
+              </div>
+              {status === 'success' && (
+                <div className="mt-4 p-3 rounded-lg bg-green-100 text-green-800 font-semibold text-center animate-fade-in">
+                  Thank you for subscribing! Please check your inbox for updates.
+                </div>
+              )}
+              {status && status !== 'success' && (
+                <p className="text-sm mt-3 text-red-600 text-center">{status}</p>
+              )}
+            </form>
             <p className="text-sm mt-3 text-gray-600 ">
               We respect your privacy. Unsubscribe at any time.
             </p>
@@ -82,20 +131,20 @@ const Footer = () => {
            
           </div>
          
-          
+         
         </div>
         <div className="mt-12 pt-8 border-t border-[#0066FF]/10">
           <p className="text-center text-gray-600">
             © {new Date().getFullYear()} <Link href="https://fizoval.com/" className="font-bricolage font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient">
-            Fizoval 
-            
+            Fizoval
+           
             </Link>
              &nbsp;- All rights reserved.
           </p>
         </div>
-      </div>
+     
     </footer>
   );
 };
-
-export default Footer; 
+ 
+export default Footer;
