@@ -48,7 +48,7 @@ export default function About() {
 Please read them carefully. If you do not agree with any part of these terms, please discontinue your use of the site and services.</p>
              <p className="text-lg text-gray-600 font-sen mb-6">
   <b>1. Acceptance of Terms</b><br />
-  By accessing or using Fizoval ("we", "our", or "us"), you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must discontinue use of our site immediately.
+  By accessing or using Fizoval (&#34;we&#34;, &#34;our&#34;, or &#34;us&#34;), you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must discontinue use of our site immediately.
 </p>
 
 <p className="text-lg text-gray-600 font-sen mb-6">
@@ -73,7 +73,7 @@ Please read them carefully. If you do not agree with any part of these terms, pl
 
 <p className="text-lg text-gray-600 font-sen mb-6">
   <b>6. Disclaimers</b><br />
-  The information provided on Fizoval is offered 'as is' without warranties of any kind. We do not guarantee the accuracy, completeness, or usefulness of any tools listed. Users should conduct their own research before relying on any tool.
+  The information provided on Fizoval is offered &#39;as is&#39; without warranties of any kind. We do not guarantee the accuracy, completeness, or usefulness of any tools listed. Users should conduct their own research before relying on any tool.
 </p>
 
 <p className="text-lg text-gray-600 font-sen mb-6">

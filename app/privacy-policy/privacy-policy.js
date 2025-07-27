@@ -66,7 +66,7 @@ export default function About() {
 
 <p className="text-lg text-gray-600 font-sen mb-6">
   <b>7. Changes to This Privacy Policy</b><br />
-  We reserve the right to modify this Privacy Policy at any time. Any changes will be posted on this page with an updated "Effective Date." We encourage you to review this policy regularly to stay informed.
+  We reserve the right to modify this Privacy Policy at any time. Any changes will be posted on this page with an updated &#34;Effective Date.&#34; We encourage you to review this policy regularly to stay informed.
 </p>
 
 <p className="text-lg text-gray-600 font-sen mb-6">
