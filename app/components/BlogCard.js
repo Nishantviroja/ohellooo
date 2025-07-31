@@ -4,48 +4,54 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const BlogCard = ({ title, excerpt,  category, image, slug }) => {
+const BlogCard = ({
+  title,
+  excerpt,
+  category,
+  image,
+  slug,
+  author,
+  date,
+  readTime
+}) => {
   return (
-    <div className="overflow-hidden bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow duration-300">
-      <div className="h-48 w-full relative">
-        {/* Image with fallback */}
-        {image ? (
-          <Image 
-            src={image} 
-            alt={title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-          />
-        ) : (
-          <div className="h-full w-full bg-blue-50 flex items-center justify-center">
-            <span className="text-gray-400">No image available</span>
-          </div>
-        )}
-        
-       
+    <Link href={`/blog/${slug}`} className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+      <div className="relative w-full aspect-[16/9]">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover"
+        />
       </div>
       <div className="p-6">
         <div className="flex items-center justify-between mb-3">
-          <span className="px-2 py-1 text-xs font-sen rounded-full bg-blue-100 text-blue-700">{category}</span>
+          <span className="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+            {category}
+          </span>
+          <span className="text-xs text-gray-500">
+         {date} · {readTime}
+          </span>
         </div>
-        <Link href={`/blog/${slug}`}>
-          <h3 className="text-xl font-bricolage font-semibold mb-2 text-blue-600 transition-colors">
-            {title}
-          </h3>
-        </Link>
-        <p className="text-gray-600 font-sen mb-4 text-sm">{excerpt}</p>
-        <Link 
-          href={`/blog/${slug}`}
-          className="inline-flex items-center text-blue-600 hover:text-blue-800 font-sen text-sm"
-        >
-          Read More
-          <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-          </svg>
-        </Link>
+        <h3 className="text-xl font-bold font-bricolage text-gray-800 mb-3 line-clamp-2">
+          {title}
+        </h3>
+        <p className="text-gray-600 font-sen mb-4 line-clamp-3">
+          {excerpt}
+        </p>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs">
+              {author && author.charAt(0)}
+            </div>
+            <span className="ml-2 text-sm text-gray-700">{author}</span>
+          </div>
+        
+         
+        </div>
+        
       </div>
-    </div>
+    </Link>
   );
 };
 

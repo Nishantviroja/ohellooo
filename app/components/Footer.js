@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState } from 'react';
@@ -33,7 +35,7 @@ const Footer = () => {
   return (
     <footer className="bg-white dark:bg-muted border-t border-[#0066FF]/10 py-12">
       <div className="container mx-auto px-8 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
+        <div className="grid grid-cols-1  lg:grid-cols-3 gap-8 ">
           <div>
             <div className="flex-shrink-0 mb-4">
             <Link href="/" className="font-bricolage text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient">
@@ -71,7 +73,7 @@ const Footer = () => {
               <h3 className="text-lg font-bold mb-4 text-[#0066FF]">Quick Links</h3>
               <ul className="space-y-2">
                 <li><Link href="/" className="text-gray-600 hover:text-[#0066FF] transition-colors">Home</Link></li>
-                <li><Link href="/categories" className="text-gray-600 hover:text-[#0066FF] transition-colors">Categories</Link></li>
+                <li><Link href="/ai-tools" className="text-gray-600 hover:text-[#0066FF] transition-colors">AI Tools</Link></li>
                 <li><Link href="/blog" className="text-gray-600 hover:text-[#0066FF] transition-colors">Blog</Link></li>
                 <li><Link href="/about" className="text-gray-600 hover:text-[#0066FF] transition-colors">About</Link></li>
               </ul>

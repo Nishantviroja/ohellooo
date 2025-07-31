@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
-import ToolCard from '../components/ToolCard';
-import { aiTools } from '../data/aiTools'; // Use the full aiTools.js data
+import ToolCard from '../../components/ToolCard';
+import { aiTools } from '../../data/aiTools';
+import { useRouter } from 'next/navigation';
 
 // Fallback image URLs for tools that don't have images
 const fallbackImages = [
@@ -20,77 +21,31 @@ const getRandomImage = () => {
   return fallbackImages[Math.floor(Math.random() * fallbackImages.length)];
 };
 
-// Standard categories to normalize variations
-const categoryNormalization = {
-  // Common variations and misspellings
-  'ai assistant': 'Chat',
-  'ai assistants': 'Chat',
-  'assistant': 'Chat',
-  'assistants': 'Chat',
-  'chatbot': 'Chat',
-  'chatbots': 'Chat',
-  'chat bot': 'Chat',
-  'conversational ai': 'Chat',
-  
-  'code': 'Generative Code',
-  'coding': 'Generative Code',
-  'code generator': 'Generative Code',
-  'code generation': 'Generative Code',
-  'software development': 'Generative Code',
-  'programming': 'Generative Code',
-  
-  'image': 'Generative Art',
-  'images': 'Generative Art',
-  'image generator': 'Generative Art',
-  'image generation': 'Generative Art',
-  'art': 'Generative Art',
-  'ai art': 'Generative Art',
-  
-  'video': 'Generative Video',
-  'videos': 'Generative Video',
-  'video generation': 'Generative Video',
-  'video creator': 'Generative Video',
-  
-  'content': 'Writing',
-  'content creation': 'Writing',
-  'content generator': 'Writing',
-  'text generator': 'Writing',
-  'text generation': 'Writing',
-  'text': 'Writing',
-  
-  'voice': 'Text-To-Speech',
-  'speech': 'Text-To-Speech',
-  'audio': 'Text-To-Speech',
-  'text to speech': 'Text-To-Speech',
-  'tts': 'Text-To-Speech',
-  
-  'productivity tool': 'Productivity',
-  'efficiency': 'Productivity',
-  'workflow': 'Productivity',
-  'automation': 'Productivity',
+// Function to shuffle array (Fisher-Yates algorithm)
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 };
 
-// Normalize a category string
-const normalizeCategory = (category) => {
-  if (!category) return 'Uncategorized';
-  
-  const lowercased = category.toLowerCase();
-  return categoryNormalization[lowercased] || category;
-};
-
-export default function ToolsPage() {
+export default function CategoryToolsPage({ categorySlug }) {
+  const router = useRouter();
   const [categories, setCategories] = useState([]);
   const [tools, setTools] = useState([]);
   const [filteredTools, setFilteredTools] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState(categorySlug);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState('default');
-  const [visibleTools, setVisibleTools] = useState(16); // Number of initially visible tools
+  const [visibleTools, setVisibleTools] = useState(16);
   const [isDataInitialized, setIsDataInitialized] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentCategoryName, setCurrentCategoryName] = useState('');
 
-  // Initialize data on component mount with chunked processing for better performance
+  // Initialize data on component mount
   useEffect(() => {
     async function processData() {
       try {
@@ -100,8 +55,8 @@ export default function ToolsPage() {
           return;
         }
 
-        // Process data in chunks to avoid blocking the main thread
-        const chunkSize = 200; // Process 200 items at a time
+        // Process data in chunks
+        const chunkSize = 200;
         const totalItems = aiTools.length;
         let processedTools = [];
         let categoryMap = {};
@@ -109,7 +64,6 @@ export default function ToolsPage() {
         // Function to process a chunk of data
         const processChunk = (startIndex) => {
           return new Promise(resolve => {
-            // Use setTimeout to yield to the main thread
             setTimeout(() => {
               const endIndex = Math.min(startIndex + chunkSize, totalItems);
               
@@ -118,24 +72,24 @@ export default function ToolsPage() {
                 if (!tool) continue;
                 
                 // Add fallback image if missing
-                const normalizedCategory = normalizeCategory(tool.category);
                 const enhancedTool = {
                   ...tool,
                   image_url: tool.image_url || getRandomImage(),
-                  category: normalizedCategory
+                  category: tool.category || 'Uncategorized'
                 };
                 
                 processedTools.push(enhancedTool);
                 
                 // Add to category map
-                if (!categoryMap[normalizedCategory]) {
-                  categoryMap[normalizedCategory] = {
-                    name: normalizedCategory,
+                const categoryName = tool.category || 'Uncategorized';
+                if (!categoryMap[categoryName]) {
+                  categoryMap[categoryName] = {
+                    name: categoryName,
                     count: 1,
-                    slug: normalizedCategory.toLowerCase().replace(/\s+/g, '-'),
+                    slug: categoryName.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-'),
                   };
                 } else {
-                  categoryMap[normalizedCategory].count += 1;
+                  categoryMap[categoryName].count += 1;
                 }
               }
               
@@ -148,9 +102,6 @@ export default function ToolsPage() {
         let currentIndex = 0;
         while (currentIndex < totalItems) {
           currentIndex = await processChunk(currentIndex);
-          
-          // Update loading progress if needed
-          // Could add a progress indicator here
         }
 
         // Convert categories to array and add IDs
@@ -170,9 +121,18 @@ export default function ToolsPage() {
           slug: 'all'
         });
 
+        // Find current category name
+        const currentCategory = categoriesArray.find(cat => cat.slug === categorySlug);
+        if (currentCategory) {
+          setCurrentCategoryName(currentCategory.name);
+        }
+
+        // Shuffle tools for random order
+        const shuffledTools = shuffleArray(processedTools);
+
         setCategories(categoriesArray);
-        setTools(processedTools);
-        setFilteredTools(processedTools);
+        setTools(shuffledTools);
+        setFilteredTools(shuffledTools);
         setIsDataInitialized(true);
         setLoading(false);
       } catch (err) {
@@ -183,23 +143,34 @@ export default function ToolsPage() {
     }
 
     processData();
-  }, []);
+  }, [categorySlug]);
+
+  // Handle category selection with URL navigation
+  const handleCategoryClick = (categorySlug) => {
+    setSelectedCategory(categorySlug);
+    if (categorySlug === 'all') {
+      router.push('/ai-tools');
+    } else {
+      router.push(`/ai-tools/${categorySlug}`);
+    }
+  };
 
   // Filter and sort tools based on selected category, search query, and sort option
   useEffect(() => {
     if (!isDataInitialized) return;
     
-    // Use a timeout to debounce the filtering for better performance
     const timeoutId = setTimeout(() => {
       let filtered = [...tools];
       
       // Filter by category if not "all"
       if (selectedCategory !== 'all') {
-        filtered = filtered.filter(tool => 
-          tool.category && 
-          (tool.category.toLowerCase() === selectedCategory.toLowerCase() ||
-           normalizeCategory(tool.category).toLowerCase() === selectedCategory.toLowerCase())
-        );
+        filtered = filtered.filter(tool => {
+          if (!tool.category) return false;
+          
+          // Convert tool category to slug for comparison
+          const toolCategorySlug = tool.category.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
+          return toolCategorySlug === selectedCategory.toLowerCase();
+        });
       }
       
       // Filter by search query
@@ -215,22 +186,16 @@ export default function ToolsPage() {
       if (sortOption === 'alphabetical') {
         filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
       } else if (sortOption === 'newest') {
-        // Assuming higher IDs are newer
         filtered.sort((a, b) => (b.id || 0) - (a.id || 0));
       }
-      // Default sorting is already applied (as loaded)
+      // Default sorting keeps the random order
       
       setFilteredTools(filtered);
-      setVisibleTools(16); // Reset visible count when filters change
-    }, 300); // 300ms debounce
+      setVisibleTools(16);
+    }, 300);
     
     return () => clearTimeout(timeoutId);
   }, [selectedCategory, searchQuery, sortOption, tools, isDataInitialized]);
-
-  // Handle category selection
-  const handleCategoryClick = (categorySlug) => {
-    setSelectedCategory(categorySlug);
-  };
 
   // Handle search input
   const handleSearchChange = (e) => {
@@ -273,7 +238,7 @@ export default function ToolsPage() {
         <div className="flex-grow flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
-            <p className="text-xl text-gray-600">Loading AI tools...</p>
+            <p className="text-xl text-gray-600">Loading {currentCategoryName} tools...</p>
             <p className="text-sm text-gray-500 mt-2">This may take a moment as we&#39;re loading a large dataset</p>
           </div>
         </div>
@@ -341,7 +306,7 @@ export default function ToolsPage() {
                 <div className="relative flex-1">
                   <input
                     type="text"
-                    placeholder="Search AI tools by name or description..."
+                    placeholder={`Search ${currentCategoryName} tools by name or description...`}
                     className="w-full py-3 px-4 pl-12 border border-gray-300 rounded-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                     value={searchQuery}
                     onChange={handleSearchChange}
@@ -358,7 +323,7 @@ export default function ToolsPage() {
                     value={sortOption}
                     onChange={handleSortChange}
                   >
-                    <option value="default">Default Order</option>
+                    <option value="default">Random Order</option>
                     <option value="alphabetical">Alphabetical (A-Z)</option>
                     <option value="newest">Newest First</option>
                   </select>
@@ -369,7 +334,7 @@ export default function ToolsPage() {
             {/* Results Info */}
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-gray-800">
-                {selectedCategory === 'all' ? 'All AI Tools' : `${categories.find(c => c.slug === selectedCategory)?.name || ''}`}
+                {currentCategoryName || 'Category'} Tools
               </h2>
               <p className="text-gray-600">
                 {filteredTools.length} {filteredTools.length === 1 ? 'tool' : 'tools'} found

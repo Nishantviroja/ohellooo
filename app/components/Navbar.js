@@ -17,8 +17,8 @@ export default function Navbar() {
             <Link href="/" className="font-sen text-gray-600 hover:text-gray-900 transition-colors">
               Home
             </Link>
-            <Link href="/categories" className="font-sen text-gray-600 hover:text-gray-900 transition-colors">
-              Categories
+            <Link href="/ai-tools" className="font-sen text-gray-600 hover:text-gray-900 transition-colors">
+            AI Tools
             </Link>
             <Link href="/blog" className="font-sen text-gray-600 hover:text-gray-900 transition-colors">
               Blog

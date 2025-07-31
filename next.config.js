@@ -29,6 +29,11 @@ const nextConfig = {
         hostname: 'em-content.zobj.net',
         pathname: '/source/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'blogger.googleusercontent.com',
+        pathname: '/**',
+      },
       
     ],
   },
