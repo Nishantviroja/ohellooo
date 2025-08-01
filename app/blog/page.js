@@ -3,6 +3,6 @@ import Blog from './blog';
 
 export const metadata = siteMetadata.blog;
 
-export default function TermsPage() {
+export default function BlogPage() {
   return <Blog />;
 }

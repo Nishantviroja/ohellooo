@@ -559,7 +559,7 @@ export default function BlogGenerator() {
                     <div className="mb-6">
                       <div className="w-16 h-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-4"></div>
                       <p className="text-lg text-gray-700 font-sen leading-relaxed italic">
-                        &#34;{formData.excerpt}&#34;
+                        &ldquo;{formData.excerpt}&rdquo;
                       </p>
                     </div>
                   )}

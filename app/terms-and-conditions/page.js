@@ -3,6 +3,6 @@ import TermsAndConditions from './terms-and-conditions';
 
 export const metadata = siteMetadata.terms;
 
-export default function TermsPage() {
+export default function TermsAndConditionsPage() {
   return <TermsAndConditions />;
 }

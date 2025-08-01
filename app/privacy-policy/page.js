@@ -3,6 +3,6 @@ import PrivacyPolicy from './privacy-policy';
 
 export const metadata = siteMetadata.privacy;
 
-export default function TermsPage() {
+export default function PrivacyPolicyPage() {
   return <PrivacyPolicy />;
 }

@@ -12,8 +12,6 @@ export default function robots() {
         ],
         disallow: [
           '/private/',
-          '/data/',
-          '/api/',
           
         ],
       },
@@ -28,8 +26,6 @@ export default function robots() {
         ],
         disallow: [
           '/private/',
-          '/data/',
-          '/api/',
           
         ],
       },
@@ -45,8 +41,6 @@ export default function robots() {
         ],
         disallow: [
           '/private/',
-          '/data/',
-          '/api/',
           
         ],
       },
@@ -61,16 +55,11 @@ export default function robots() {
         ],
         disallow: [
           '/private/',
-          '/data/',
-          '/api/',
          
         ],
       },
-    ],
-    sitemap: [
-      'https://fizoval.com/sitemap.xml',
-      'https://fizoval.com/image-sitemap.xml',
-    ],
+        ],
+    sitemap: 'https://fizoval.com/sitemap.xml',
     host: 'https://fizoval.com',
   }
 }

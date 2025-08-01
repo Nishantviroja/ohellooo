@@ -3,6 +3,6 @@ import AffiliateDisclosure from './affiliate-disclosure';
 
 export const metadata = siteMetadata.affiliate;
 
-export default function TermsPage() {
+export default function AffiliateDisclosurePage() {
   return <AffiliateDisclosure />;
 }

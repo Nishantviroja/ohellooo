@@ -3,6 +3,6 @@ import About from './about';
 
 export const metadata = siteMetadata.about;
 
-export default function TermsPage() {
+export default function AboutPage() {
   return <About />;
 }

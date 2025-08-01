@@ -3,6 +3,6 @@ import AItools from './ai-tools';
 
 export const metadata = siteMetadata.aiTools;
 
-export default function TermsPage() {
+export default function AIToolsPage() {
   return <AItools />;
 }
