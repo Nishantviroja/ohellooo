@@ -85,7 +85,7 @@ function ToolsPageContent() {
                   categoryMap[categoryName] = {
                     name: categoryName,
                     count: 1,
-                    slug: categoryName.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-'),
+                    slug: categoryName.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-') + '-ai-tools',
                   };
                 } else {
                   categoryMap[categoryName].count += 1;
@@ -144,7 +144,7 @@ function ToolsPageContent() {
     if (categorySlug === 'all') {
       router.push('/ai-tools');
     } else {
-      router.push(`/ai-tools/${categorySlug}`);
+      router.push(`/${categorySlug}`);
     }
   };
 
@@ -160,9 +160,10 @@ function ToolsPageContent() {
         filtered = filtered.filter(tool => {
           if (!tool.category) return false;
           
-          // Convert tool category to slug for comparison
+          // Convert tool category to slug for comparison (remove -ai-tools suffix)
           const toolCategorySlug = tool.category.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
-          return toolCategorySlug === selectedCategory.toLowerCase();
+          const selectedCategoryBase = selectedCategory.replace(/-ai-tools$/, '');
+          return toolCategorySlug === selectedCategoryBase;
         });
       }
       

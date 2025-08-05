@@ -198,7 +198,7 @@ export default function Home() {
           </div>
           
           {/* Tool cards grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
             {currentCards.map((tool, index) => (
               <ToolCard 
                 key={tool.index || index}
