@@ -126,7 +126,7 @@ export default async function ToolDetailPage({ params }) {
     const shuffled = arr.slice().sort(() => 0.5 - Math.random());
     return shuffled.slice(0, n);
   }
-  const randomRelatedTools = getRandomItems(relatedTools, 8);
+  const randomRelatedTools = getRandomItems(relatedTools, 4);
 
   // Fetch recent blog posts
   const blogPosts = await fetchBlogPosts();
