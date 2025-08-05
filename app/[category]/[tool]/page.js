@@ -1,5 +1,5 @@
 import { aiTools } from '../../data/aiTools';
-import { fetchBlogPosts } from '../../data/blogPosts';
+// import { fetchBlogPosts } from '../../data/blogPosts';
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
@@ -129,8 +129,8 @@ export default async function ToolDetailPage({ params }) {
   const randomRelatedTools = getRandomItems(relatedTools, 4);
 
   // Fetch recent blog posts
-  const blogPosts = await fetchBlogPosts();
-  const recentBlogs = blogPosts.slice(0, 3);
+  // const blogPosts = await fetchBlogPosts();
+  // const recentBlogs = blogPosts.slice(0, 3);
 
   // Generate category page URL
   const categoryPageUrl = `/${category}`;
@@ -239,8 +239,8 @@ export default async function ToolDetailPage({ params }) {
             <div className="text-center mt-12">
               <Link
                 href={categoryPageUrl}
-                className="text-blue-600 hover:text-blue-800 font-semibold text-lg transition-colors duration-200 underline"
-              >
+                className="inline-block bg-blue-600 text-white text-center py-3 px-8 rounded-xl font-semibold text-base hover:bg-blue-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
+                  >
                 View More {foundTool.category} Tools →
               </Link>
             </div>
@@ -249,28 +249,7 @@ export default async function ToolDetailPage({ params }) {
         )}
 
         {/* Recent Blogs Section */}
-        {recentBlogs.length > 0 && (
-          <div className="mt-12">
-            <div className="container mx-auto px-8 mb-12">
-              <h2 className="text-3xl font-bold mt-12 mb-12 text-black text-left">Recent Blog Posts</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {recentBlogs.map(blog => (
-                  <BlogCard
-                    key={blog.slug}
-                    title={blog.title}
-                    excerpt={blog.excerpt}
-                    category={blog.category}
-                    image={blog.image}
-                    slug={blog.slug}
-                    author={blog.author}
-                    date={blog.date}
-                    readTime={blog.readTime}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+       
       </main>
       <Footer />
     </div>
