@@ -1,10 +1,17 @@
-import blogPosts from '../../data/blogPosts';
+import { fetchBlogPosts } from '../../data/blogPosts';
 import BlogPost from './blogPost';
+import { notFound } from 'next/navigation';
 
 // Generate metadata for each blog post
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  let post = null;
+  try {
+    const posts = await fetchBlogPosts();
+    post = posts.find((p) => p.slug === slug) || null;
+  } catch {
+    post = null;
+  }
 
   if (!post) {
     return {
@@ -43,5 +50,17 @@ export async function generateMetadata({ params }) {
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
+
+  // Ensure 404 status by resolving post server-side
+  try {
+    const posts = await fetchBlogPosts();
+    const post = posts.find((p) => p.slug === slug);
+    if (!post) {
+      notFound();
+    }
+  } catch {
+    notFound();
+  }
+
   return <BlogPost slug={slug} />;
-} 
+}

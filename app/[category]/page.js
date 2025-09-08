@@ -1,5 +1,6 @@
 import { aiTools } from '../data/aiTools';
 import CategoryToolsPage from './category-tools';
+import { notFound } from 'next/navigation';
 
 // Generate static params for all categories with '-ai-tools' suffix
 export async function generateStaticParams() {
@@ -88,5 +89,13 @@ export async function generateMetadata({ params }) {
 export default async function CategoryPage({ params }) {
   const { category } = await params;
   const categorySlug = getCategoryFromSlug(category);
+  // Ensure 404 status when category does not exist or has no tools
+  const hasTools = Array.isArray(aiTools) && aiTools.some(tool => {
+    const toolCategorySlug = (tool.category || '').toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
+    return toolCategorySlug === categorySlug;
+  });
+  if (!hasTools) {
+    notFound();
+  }
   return <CategoryToolsPage categorySlug={categorySlug} />;
 } 

@@ -1,11 +1,10 @@
 import { aiTools } from '../../data/aiTools';
-import { fetchBlogPosts } from '../../data/blogPosts';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import ToolCard from '../../components/ToolCard';
-import BlogCard from '../../components/BlogCard';
+import { notFound } from 'next/navigation';
 
 const getCategoryFromSeoSlug = (slug) => slug.replace(/-ai-tools$/, '');
 const slugify = (str) => {
@@ -102,36 +101,10 @@ export default async function ToolDetailPage({ params }) {
   });
 
   if (!foundTool) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <div className="flex-grow flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-4">Tool Not Found</h1>
-            <p className="text-gray-600">Sorry, we couldn&#39;t find the tool you&#39;re looking for.</p>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
+    notFound();
   }
 
-  // Filter tools by category, excluding the current tool
-  const relatedTools = aiTools.filter(
-    t => t.category === foundTool.category && t.name !== foundTool.name
-  );
-
-  // Shuffle and pick 8 random tools
-  function getRandomItems(arr, n) {
-    const shuffled = arr.slice().sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, n);
-  }
-  const randomRelatedTools = getRandomItems(relatedTools, 8);
-
-  // Fetch recent blog posts
-  const blogPosts = await fetchBlogPosts();
-  const recentBlogs = blogPosts.slice(0, 3);
-
+  
   // Generate category page URL
   const categoryPageUrl = `/${category}`;
 
@@ -151,7 +124,7 @@ export default async function ToolDetailPage({ params }) {
                         src={foundTool.image_url}
                         alt={foundTool.name || foundTool.title}
                         fill
-                        className="object-contain rounded-xs cursor-pointer hover:opacity-0 transition-opacity"
+                        className="object-contain rounded-lg cursor-pointer transition-opacity"
                         sizes="(max-width: 768px) 100vw, 50vw"
                         priority
                       />
@@ -200,7 +173,7 @@ export default async function ToolDetailPage({ params }) {
 
                 {/* Visit Tool Button */}
                 {foundTool.external_link && (
-                  <div className="pt-2">
+                  <div className="pt-2 flex flex-col lg:flex-row gap-4">
                     <a
                       href={foundTool.external_link}
                       target="_blank"
@@ -209,6 +182,12 @@ export default async function ToolDetailPage({ params }) {
                     >
                       Visit Tool ↗
                     </a>
+                    <Link
+                href={categoryPageUrl}
+                className="inline-block bg-blue-50 text-blue-700 border border-blue-500 text-center py-3 px-8 rounded-xl font-semibold text-base  transition-colors duration-200 shadow-lg"
+                  >
+                More {foundTool.category} Tools →
+              </Link>
                   </div>
                 )}
               </div>
@@ -216,62 +195,37 @@ export default async function ToolDetailPage({ params }) {
           </div>
         </div>
 
-        {/* Related Tools Section */}
-        {randomRelatedTools.length > 0 && (
-          <div className="mt-12">
-            <div className="container mx-auto px-8 mb-12">
-            <h2 className="text-3xl font-bold my-12 text-black text-left">Related {foundTool.category} Tools</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-              {randomRelatedTools.map(tool => (
-                <ToolCard
-                  key={tool.name}
-                  title={tool.name || tool.title}
-                  excerpt={tool.description}
-                  external_link={tool.external_link}
-                  category={tool.category}
-                  image_url={tool.image_url}
-                  name={tool.name}
-                />
-              ))}
-            </div>
-            
-            {/* View More Link */}
-            <div className="text-center mt-12">
-              <Link
-                href={categoryPageUrl}
-                className="text-blue-600 hover:text-blue-800 font-semibold text-lg transition-colors duration-200 underline"
-              >
-                View More {foundTool.category} Tools →
-              </Link>
-            </div>
-            </div>
-          </div>
-        )}
-
-        {/* Recent Blogs Section */}
-        {recentBlogs.length > 0 && (
-          <div className="mt-12">
-            <div className="container mx-auto px-8 mb-12">
-              <h2 className="text-3xl font-bold mt-12 mb-12 text-black text-left">Recent Blog Posts</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {recentBlogs.map(blog => (
-                  <BlogCard
-                    key={blog.slug}
-                    title={blog.title}
-                    excerpt={blog.excerpt}
-                    category={blog.category}
-                    image={blog.image}
-                    slug={blog.slug}
-                    author={blog.author}
-                    date={blog.date}
-                    readTime={blog.readTime}
-                  />
-                ))}
+       
+       
+      </main>
+      
+      <div className="container mx-auto px-8 ">
+         {/* CTA Section */}
+         <div className="mt-16 mb-16">
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center text-white shadow-2xl">
+              <div className="max-w-3xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  Ready to Explore More AI Tools?
+                </h2>
+                <p className="text-xl mb-8 text-blue-100 leading-relaxed">
+                  Discover over 5000+ cutting-edge AI tools that can transform your workflow. 
+                  From productivity to creativity, find the perfect AI solution for your needs.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link 
+                    href="/ai-tools" 
+                    className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
+                  >
+                    Browse All AI Tools →
+                  </Link>
+                  
+                </div>
+                
               </div>
             </div>
           </div>
-        )}
-      </main>
+      </div>
+
       <Footer />
     </div>
   );

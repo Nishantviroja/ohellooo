@@ -1,6 +1,10 @@
 import { fetchBlogPosts } from './data/blogPosts';
 import { aiTools } from './data/aiTools';
 
+// Make sitemap dynamic with revalidation when not using static export
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // revalidate every hour
+
 export default async function sitemap() {
   const baseUrl = 'https://fizoval.com';
 
@@ -58,7 +62,7 @@ export default async function sitemap() {
       url: `${baseUrl}/blog/${post.slug}`,
       lastModified: new Date(post.date),
       changeFrequency: 'monthly',
-      priority: 0.7,
+      priority: 0.8,
     }));
   } catch (error) {
     console.error('Error fetching blog posts for sitemap:', error);

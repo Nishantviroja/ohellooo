@@ -49,6 +49,7 @@ export default function CategoryToolsPage({ categorySlug }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentCategoryName, setCurrentCategoryName] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Initialize data on component mount
   useEffect(() => {
@@ -153,6 +154,7 @@ export default function CategoryToolsPage({ categorySlug }) {
   // Handle category selection with URL navigation
   const handleCategoryClick = (categorySlug) => {
     setSelectedCategory(categorySlug);
+    setIsSidebarOpen(false);
     if (categorySlug === 'all') {
       router.push('/ai-tools');
     } else {
@@ -268,9 +270,23 @@ export default function CategoryToolsPage({ categorySlug }) {
       <Navbar />
       
       <div className="flex-grow container mx-auto px-8 py-8">
+        {/* Mobile categories toggle */}
+        <div className="mb-4 md:hidden">
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors shadow"
+            aria-label="Open categories"
+          >
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            Categories
+          </button>
+        </div>
+
         <div className="flex flex-col md:flex-row gap-6">
           {/* Categories Sidebar */}
-          <div className="md:w-1/4 lg:w-1/5">
+          <div className="hidden md:block md:w-1/4 lg:w-1/5">
             <div className="sticky top-24 bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden">
               <div className="bg-gradient-to-r from-blue-500 to-indigo-600 px-4 py-3">
                 <h2 className="text-lg font-bold text-white">Categories</h2>
@@ -388,6 +404,58 @@ export default function CategoryToolsPage({ categorySlug }) {
         </div>
       </div>
       
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      {/* Mobile Slide-over Sidebar */}
+      <div
+        className={`fixed top-0 left-0 h-full w-72 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out md:hidden ${
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+        aria-hidden={!isSidebarOpen}
+      >
+        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+          <h2 className="text-lg font-bold text-gray-800">Categories</h2>
+          <button
+            onClick={() => setIsSidebarOpen(false)}
+            className="p-1 rounded-md hover:bg-gray-100"
+            aria-label="Close categories"
+          >
+            <svg className="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div className="h-[calc(100%-64px)] overflow-y-auto">
+          <ul className="divide-y divide-gray-200">
+            {categories.map(category => (
+              <li key={category.id}>
+                <button
+                  onClick={() => handleCategoryClick(category.slug)}
+                  className={`w-full text-left px-4 py-3 font-medium transition-colors ${
+                    (selectedCategory === 'all' && category.slug === 'all') || (getCategoryFromSeoSlug(selectedCategory) === getCategoryFromSeoSlug(category.slug))
+                      ? 'bg-blue-50 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  <span className="flex justify-between items-center">
+                    <span>{category.name}</span>
+                    <span className="bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-full">
+                      {category.count}
+                    </span>
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
