@@ -192,10 +192,7 @@ export default async function ToolDetailPage({ params }) {
                      {foundTool.full_description}
                     </p>
 
-                     <h2 className="text-xl font-bold text-gray-900 my-2 mt-4">Why use {foundTool.name}?</h2>
-                      <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg my-2 text-justify">
-                     Unlike traditional software, {foundTool.name} integrates AI-driven features that deliver results faster and more accurately. This makes it a valuable resource for anyone who wants to experiment with artificial intelligence or apply it in real-world projects. Users appreciate its ability to streamline workflows, provide consistent output, and reduce the need for technical expertise.
-                    </p>
+                     
                      <h2 className="text-xl font-bold text-gray-900 my-2 mt-4">Pricing</h2>
                       <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg my-2 text-justify">
                   
