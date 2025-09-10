@@ -208,11 +208,7 @@ export default async function ToolDetailPage({ params }) {
                        {foundTool.name}
                     </a> website.
 
-                    </p>   <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg my-2 text-justify">
-                   
-At Fizoval, we research and curate AI tools like {foundTool.name} to make it easier for users to discover reliable solutions in categories such as {foundTool.category}. Our goal is to provide clear, unbiased information so you can choose the right tool with confidence.
-
-                    </p>  
+                    </p>
 
                   </div>
                 )}
