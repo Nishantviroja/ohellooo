@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
   }
 
   return {
-    title: post.metadata?.title || `${post.title} | Fizoval`,
+    title:  `${post.metadata?.title} - Fizoval` || `${post.title} - Fizoval`,
     description: post.metadata?.desc || post.excerpt,
     keywords: post.metadata?.keyword || '',
     openGraph: {
@@ -34,6 +34,7 @@ export async function generateMetadata({ params }) {
           url: post.image,
           width: 1200,
           height: 630,
+          alt:post.title, 
         },
       ],
       locale: 'en_US',

@@ -29,7 +29,7 @@ export default function Blog() {
     <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50 py-20 px-4 md:px-8 flex items-center justify-center">
+      <section className="bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50 py-8 px-4 md:px-8 flex items-center justify-center">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold font-bricolage text-gray-900 mb-6 leading-tight drop-shadow-sm">
             Latest <span className="font-bricolage font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient">
@@ -37,14 +37,14 @@ export default function Blog() {
              
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 font-sen mb-8 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 font-sen mb-4 max-w-2xl mx-auto">
             Stay ahead with expert articles, reviews, and news about the most powerful AI tools and technology trends.
           </p>
         </div>
       </section>
       {/* Blog Cards Grid */}
-      <section className="flex-1 py-12 bg-gray-50">
-        <div className="container mx-auto px-4 md:px-8 py-12">
+      <section className="flex-1 bg-gray-50">
+        <div className="container mx-auto px-4 md:px-8 py-10">
           {loading ? (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
