@@ -25,7 +25,7 @@ export default async function sitemap() {
     {
       url: `${baseUrl}/ai-tools`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'daily',
       priority: 0.9,
     },
     {
@@ -109,14 +109,14 @@ export default async function sitemap() {
   const categoryUrlsArray = Array.from(categorySet).map(category => ({
     url: `${baseUrl}/${getSeoCategorySlug(category)}`,
     lastModified: new Date(),
-    changeFrequency: 'weekly',
+    changeFrequency: 'daily',
     priority: 0.8,
   }));
 
   return [
     ...staticPages,
-    ...categoryUrlsArray,
     ...blogPostUrls,
-    ...toolUrls,
+    ...categoryUrlsArray,
+    // ...toolUrls,
   ];
 } 
