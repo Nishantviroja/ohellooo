@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getAuthorByName } from '../data/authors';
 
 const BlogCard = ({
   title,
@@ -41,13 +42,16 @@ const BlogCard = ({
         </p>
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-xs">
-              {author && author.charAt(0)}
+            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-200">
+              <Image
+                src={getAuthorByName(author).avatar}
+                alt={author}
+                fill
+                className="object-cover"
+              />
             </div>
             <span className="ml-2 text-sm text-gray-700">{author}</span>
           </div>
-        
-         
         </div>
         
       </div>

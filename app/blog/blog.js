@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { fetchBlogPosts } from '../data/blogPosts';
 import BlogCard from '../components/BlogCard';
+import Script from 'next/script';
+import { getAuthorByName } from '../data/authors';
 
 
 export default function Blog() {
@@ -25,9 +27,49 @@ export default function Blog() {
     loadBlogPosts();
   }, []);
 
+  const jsonLd = useMemo(() => {
+    if (!blogPosts || blogPosts.length === 0) return null;
+    // Use the first post to provide a representative BlogPosting for the list page
+    const first = blogPosts[0];
+    const authorData = getAuthorByName(first.author);
+    const url = `https://fizoval.com/blog/${first.slug}`;
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: first.metadata?.title || first.title,
+      description: first.metadata?.desc || first.excerpt,
+      author: {
+        '@type': 'Person',
+        name: authorData.name,
+        url: authorData.linkedin,
+        description: authorData.about,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Fizoval',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://fizoval.com/FeaturingIMG.png',
+        },
+      },
+      image: first.image,
+      datePublished: first.date,
+      dateModified: first.date,
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': url,
+      },
+    };
+  }, [blogPosts]);
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
+      {jsonLd ? (
+        <Script id="blog-list-jsonld" type="application/ld+json">
+          {JSON.stringify(jsonLd)}
+        </Script>
+      ) : null}
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50 py-8 px-4 md:px-8 flex items-center justify-center">
         <div className="max-w-3xl mx-auto text-center">
