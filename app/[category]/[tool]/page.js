@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import HomeBlogSection from '../../components/HomeBlogSection';
 import { notFound } from 'next/navigation';
 
 const getCategoryFromSeoSlug = (slug) => slug.replace(/-ai-tools$/, '');
@@ -15,19 +16,7 @@ const slugify = (str) => {
     .replace(/-+/g, '-');        // collapse multiple dashes
 };
 
-export async function generateStaticParams() {
-  // Generate all possible tool detail routes using slugified tool name
-  if (!aiTools || !Array.isArray(aiTools)) return [];
-  const params = [];
-  aiTools.forEach(tool => {
-    if (tool.category && tool.name) {
-      const categorySlug = tool.category.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-') + '-ai-tools';
-      const toolSlug = slugify(tool.name);
-      params.push({ category: categorySlug, tool: toolSlug });
-    }
-  });
-  return params;
-}
+// Removed generateStaticParams to avoid prebuilding 3000+ tool pages. Pages will be generated on-demand.
 
 // Generate metadata for each tool detail page
 export async function generateMetadata({ params }) {
@@ -48,6 +37,7 @@ export async function generateMetadata({ params }) {
     return {
       title: 'Tool Not Found | Fizoval',
       description: 'Sorry, we couldn\'t find the tool you\'re looking for.',
+      robots: { index: true, follow: true, maxImagePreview: 'large' },
     };
   }
 
@@ -59,6 +49,7 @@ export async function generateMetadata({ params }) {
     title,
     description,
     keywords,
+    robots: { index: true, follow: true, maxImagePreview: 'large' },
     openGraph: {
       title,
       description,
@@ -246,6 +237,8 @@ export default async function ToolDetailPage({ params }) {
             </div>
           </div>
       </div>
+
+      <HomeBlogSection />
 
       <Footer />
     </div>

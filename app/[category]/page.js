@@ -2,28 +2,6 @@ import { aiTools } from '../data/aiTools';
 import CategoryToolsPage from './category-tools';
 import { notFound } from 'next/navigation';
 
-// Generate static params for all categories with '-ai-tools' suffix
-export async function generateStaticParams() {
-  if (!aiTools || !Array.isArray(aiTools)) {
-    return [];
-  }
-
-  // Get unique categories
-  const categorySet = new Set();
-  aiTools.forEach(tool => {
-    if (tool.category) {
-      categorySet.add(tool.category);
-    }
-  });
-
-  // Convert to params format with '-ai-tools' suffix
-  const params = Array.from(categorySet).map(category => ({
-    category: category.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-') + '-ai-tools'
-  }));
-
-  return params;
-}
-
 // Helper to get original category slug from SEO-friendly slug
 function getCategoryFromSlug(slug) {
   return slug.replace(/-ai-tools$/, '');
@@ -59,6 +37,7 @@ export async function generateMetadata({ params }) {
     title,
     description,
     keywords,
+    robots: { index: true, follow: true, maxImagePreview: 'large' },
     openGraph: {
       title,
       description,

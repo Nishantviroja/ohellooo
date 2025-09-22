@@ -35,7 +35,7 @@ export default function Blog() {
     const url = `https://fizoval.com/blog/${first.slug}`;
     return {
       '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
+      '@type': 'NewsArticle',
       headline: first.metadata?.title || first.title,
       description: first.metadata?.desc || first.excerpt,
       author: {

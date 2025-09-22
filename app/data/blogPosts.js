@@ -2,7 +2,7 @@
 async function fetchBlogPosts() {
   try {
     // Fetch from your GitHub repository
-    const response = await fetch('https://raw.githubusercontent.com/Nishantviroja/blogdata/main/blogPosts.json');
+    const response = await fetch('https://raw.githubusercontent.com/Nishantviroja/blogdata/main/blogPosts.json', { cache: 'no-store' });
     
     if (!response.ok) {
       throw new Error('Failed to fetch blog posts');

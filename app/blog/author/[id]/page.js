@@ -3,13 +3,8 @@ import { fetchBlogPosts } from '../../../data/blogPosts';
 import { notFound } from 'next/navigation';
 import AuthorBio from './authorBio';
 
-// Generate static params for all authors
-export async function generateStaticParams() {
-  const authors = getAllAuthors();
-  return authors.map((author) => ({
-    id: author.id,
-  }));
-}
+// Render this route dynamically on each request to ensure fresh blog counts
+export const dynamic = 'force-dynamic';
 
 // Generate metadata for each author page
 export async function generateMetadata({ params }) {
