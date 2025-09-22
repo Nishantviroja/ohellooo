@@ -144,7 +144,7 @@ export default function HomeToolsSection() {
         {filteredTools.length === 0 && (
           <div className="text-center py-12">
             <h3 className="text-xl font-bricolage font-semibold text-gray-800 mb-2">No AI tools found</h3>
-            <p className="text-gray-600 font-sen">Try adjusting your search or filter to find what you're looking for.</p>
+            <p className="text-gray-600 font-sen">Try adjusting your search or filter to find what you&apos;re looking for.</p>
           </div>
         )}
 
