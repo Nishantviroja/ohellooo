@@ -15,6 +15,8 @@ export async function GET() {
     const title = escapeXml(post.title || 'Untitled');
     const description = escapeXml(post.excerpt || post.metadata?.desc || '');
     const author = escapeXml(post.author || 'Fizoval Team');
+    const imageUrl = post.image ? escapeXml(post.image) : '';
+
     return `
       <item>
         <title>${title}</title>
@@ -23,11 +25,12 @@ export async function GET() {
         <description>${description}</description>
         <author>${author}</author>
         <pubDate>${pubDate}</pubDate>
+        ${imageUrl ? `<enclosure url="${imageUrl}" type="image/*" />` : ''}
       </item>`;
   }).join('');
 
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>Fizoval Blog</title>
     <link>${baseUrl}/blog</link>
@@ -53,5 +56,3 @@ function escapeXml(unsafe = '') {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 }
-
-
