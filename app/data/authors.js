@@ -3,29 +3,29 @@ const authors = [
   {
     id: 'nishant-viroja',
     name: 'Nishant Viroja',
-    about: 'AI enthusiast and tech writer with 5+ years of experience in machine learning and automation. Passionate about making AI accessible to everyone.',
+    about: 'Nishant Viroja is an Tech enthusiast with dedicated to making AI accessible, understandable, and actionable for everyone. He provide up-to-date insights on AI trends, innovations, and practical applications, helping readers and professionals stay informed in the rapidly evolving world of AI.',
     linkedin: 'https://linkedin.com/in/nishant-patel',
     avatar: 'https://blogger.googleusercontent.com/img/a/AVvXsEj7vxyHtrxzOtRV7M9jt-Am83SucvRfgucE2DfshuhmXjerWYHSbiQn3oeSUMzk2OZCiI87e47Hi8jK8UiYr6H6q7Ktn5OiODnvzqNbYx6teMEcTn_V4s00Pfs0_2aHzgWLi8tbAG5-r-fpTWm2ZIB6rKxvV6o4crzJXt2wGnTo0hHcthOhsBjKJ6YFQFlQ=s16000',
-    bio: 'Nishant is a seasoned AI researcher and content creator who has been at the forefront of artificial intelligence developments. With a background in computer science and extensive experience in machine learning, he specializes in translating complex AI concepts into accessible content for developers, entrepreneurs, and tech enthusiasts.',
-    expertise: ['Machine Learning', 'AI Tools', 'Automation', 'Content Creation'],
     social: {
-      linkedin: 'https://linkedin.com/in/nishant-patel',
-      twitter: 'https://twitter.com/nishant_patel',
-      github: 'https://github.com/nishant-patel'
+      linkedin: 'https://linkedin.com/in/nishant-viroja',
+      twitter: 'https://x.com/NishantViroja',
+      peerlist:'https://peerlist.io/nishantviroja',
+      mail:'contact@fizoval.com'
+     
     }
   },
   {
     id: 'surali-patel',
     name: 'Surali Patel',
-    about: 'Tech entrepreneur and AI strategist with expertise in business development and AI implementation. Focused on helping businesses leverage AI for growth.',
-    linkedin: 'https://linkedin.com/in/surali-patel',
+    about: 'Surali Patel is passionate about technology and artificial intelligence, dedicated to helping everyone understand and use AI effectively. She writes about the latest AI trends, innovations, and real-world applications, empowering readers and professionals to stay informed in today’s rapidly evolving AI landscape.',
+   linkedin: 'https://linkedin.com/in/surali-patel',
     avatar: 'https://blogger.googleusercontent.com/img/a/AVvXsEiymOynqcRLARr77Mof5tj9sx20gOAPPNJDmYMTmYtzCm8HJnvDgkfCWPQdnrhXFyJaN6xHYQcagrGlLd4Ow2E7FwiV9zY4f6o2NLcs7X8H76kkAM3uy0BntmfJB6VM2OWkE4i5V7hu9gRLRJ8zNVcBmzl-28vfwRAU9TTIQnbyAB7NniNjSSgwJVOqYhW0=s16000',
-    bio: 'Surali is a tech entrepreneur and business strategist with a passion for AI innovation. With years of experience in business development and technology implementation, he helps companies identify and integrate AI solutions that drive real business value and growth.',
-    expertise: ['Business Strategy', 'AI Implementation', 'Entrepreneurship', 'Technology Leadership'],
     social: {
-      linkedin: 'https://linkedin.com/in/surali-patel',
+      linkedin: 'https://www.linkedin.com/in/surali-asodariya-289a85219/',
       twitter: 'https://twitter.com/surali_patel',
-      website: 'https://fizoval.com'
+      peerlist: 'https://peerlist.io/suralipatel',
+      mail:'contact@fizoval.com'
+      
     }
   }
 ];

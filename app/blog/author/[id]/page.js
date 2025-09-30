@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${author.name} - Author Bio | Fizoval`,
     description: author.about,
-    keywords: `${author.name}, AI expert, ${author.expertise.join(', ')}`,
+    keywords: `${author.name}, AI expert`,
     authors: [{ name: author.name, url: author.linkedin }],
     openGraph: {
       title: `${author.name} - Author | Fizoval`,
