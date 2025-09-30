@@ -102,7 +102,17 @@ export default function BlogPost({ slug }) {
               <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full mr-3">
                 {post.category}
               </span> 
-             <span className=" text-gray-600">{post.date} · {post.readTime}</span>
+             {/* <span className=" text-gray-600">{post.date} · {post.readTime}</span> */}
+             <span className="text-gray-600">
+  {new Date(post.date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+     hour: "2-digit",
+  minute: "2-digit"
+  })} · {post.readTime}
+</span>
+
             </div>
             <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-6 leading-tight">
               {post.title}

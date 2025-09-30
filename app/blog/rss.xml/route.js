@@ -11,7 +11,7 @@ export async function GET() {
 
   const items = (posts || []).map((post) => {
     const url = `${baseUrl}/blog/${post.slug}`;
-    const pubDate = post.date ? new Date(post.date).toUTCString() : new Date().toUTCString();
+    const pubDate = new Date(post.date).toUTCString();
     const title = escapeXml(post.title || 'Untitled');
     const description = escapeXml(post.excerpt || post.metadata?.desc || '');
     const author = escapeXml(post.author || 'Fizoval Team');

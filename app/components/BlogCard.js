@@ -30,9 +30,17 @@ const BlogCard = ({
           <span className="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
             {category}
           </span>
+          {/* <span className="text-xs text-gray-500">
+         {date}  · {readTime}
+          </span> */}
           <span className="text-xs text-gray-500">
-         {date} · {readTime}
-          </span>
+  {new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  })} · {readTime}
+</span>
+
         </div>
         <h3 className="text-xl font-bold font-bricolage text-gray-800 mb-3 line-clamp-2">
           {title}

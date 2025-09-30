@@ -60,7 +60,7 @@ export default async function sitemap() {
     const blogPosts = await fetchBlogPosts();
     blogPostUrls = blogPosts.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,
-      lastModified: new Date(post.date),
+      lastModified: new Date(post.date).toISOString(),
       changeFrequency: 'monthly',
       priority: 0.8,
     }));

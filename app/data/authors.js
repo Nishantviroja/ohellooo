@@ -1,8 +1,8 @@
 // Author data with unique IDs mapped to author names from blog posts
 const authors = [
   {
-    id: 'nishant-patel',
-    name: 'Nishant Patel',
+    id: 'nishant-viroja',
+    name: 'Nishant Viroja',
     about: 'AI enthusiast and tech writer with 5+ years of experience in machine learning and automation. Passionate about making AI accessible to everyone.',
     linkedin: 'https://linkedin.com/in/nishant-patel',
     avatar: 'https://blogger.googleusercontent.com/img/a/AVvXsEj7vxyHtrxzOtRV7M9jt-Am83SucvRfgucE2DfshuhmXjerWYHSbiQn3oeSUMzk2OZCiI87e47Hi8jK8UiYr6H6q7Ktn5OiODnvzqNbYx6teMEcTn_V4s00Pfs0_2aHzgWLi8tbAG5-r-fpTWm2ZIB6rKxvV6o4crzJXt2wGnTo0hHcthOhsBjKJ6YFQFlQ=s16000',

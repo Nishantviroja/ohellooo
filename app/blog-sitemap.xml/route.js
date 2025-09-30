@@ -34,7 +34,7 @@ export async function GET() {
     },
     ...blogPosts.map((post) => ({
       loc: `${baseUrl}/blog/${post.slug}`,
-      lastmod: new Date(post.date || new Date()).toISOString(),
+      lastModified: new Date(post.date).toISOString(),
       changefreq: 'monthly',
       priority: 0.8,
       image: post.image || null, // single image URL
