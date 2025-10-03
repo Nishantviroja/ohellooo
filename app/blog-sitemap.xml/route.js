@@ -27,7 +27,7 @@ export async function GET() {
   const urls = [
     {
       loc: `${baseUrl}/blog`,
-      lastmod: new Date().toISOString(),
+      lastModified: new Date().toISOString(),
       changefreq: 'daily',
       priority: 0.9,
       image: null, // No image for blog index
@@ -49,7 +49,7 @@ export async function GET() {
       (u) => `
     <url>
       <loc>${escapeXml(u.loc)}</loc>
-      <lastmod>${u.lastmod}</lastmod>
+      <lastmod>${u.lastModified}</lastmod>
       <changefreq>${u.changefreq}</changefreq>
       <priority>${u.priority}</priority>
       ${

@@ -52,6 +52,12 @@ export default async function sitemap() {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
+    {
+      url: `${baseUrl}/blog/author/nishant-viroja`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.8,
+    },
   ];
 
   // Fetch blog posts dynamically
@@ -63,6 +69,7 @@ export default async function sitemap() {
       lastModified: new Date(post.date).toISOString(),
       changeFrequency: 'monthly',
       priority: 0.8,
+      image: post.image || null, // single image URL
     }));
   } catch (error) {
     console.error('Error fetching blog posts for sitemap:', error);
