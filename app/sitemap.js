@@ -69,7 +69,8 @@ export default async function sitemap() {
       lastModified: new Date(post.date).toISOString(),
       changeFrequency: 'monthly',
       priority: 0.8,
-      image: post.image || null, // single image URL
+      
+
     }));
   } catch (error) {
     console.error('Error fetching blog posts for sitemap:', error);
