@@ -14,12 +14,7 @@ export default function robots() {
       },
       {
         userAgent: 'Googlebot-Image',
-        allow: [
-          '/',
-          '/public/',
-          '/Fizoval.png',
-          '/FeaturingIMG.png',
-        ],
+        allow: '/',
         disallow: '/private/',
       },
       {
@@ -32,6 +27,6 @@ export default function robots() {
       'https://fizoval.com/sitemap.xml',
       'https://fizoval.com/blog-sitemap.xml', // add more if needed
     ],
-    host: 'fizoval.com',
+    
   }
 }
