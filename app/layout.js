@@ -5,6 +5,7 @@ import siteMetadata from "./data/metadata";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import OneSignalInit from "./components/OneSignalInit";
 import MicrosoftClarity from "./components/MicrosoftClarity"; 
+import GoogleAdSense from "./components/GoogleAdSense";
 
 export const metadata = siteMetadata.home;
 
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
         <GoogleAnalytics GA_MEASUREMENT_ID="G-RMDMKFX1EM" />
         <MicrosoftClarity CLARITY_PROJECT_ID="tyxnewam75" />
         <OneSignalInit />
+        <GoogleAdSense AD_CLIENT_ID="ca-pub-6543173328208739" />
         {children}
       </body>
     </html>
