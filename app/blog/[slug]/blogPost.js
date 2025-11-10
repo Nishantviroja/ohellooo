@@ -12,6 +12,7 @@ import Script from 'next/script';
 import { FaWhatsapp, FaLinkedinIn, FaRedditAlien } from 'react-icons/fa';
 import { FiLink } from 'react-icons/fi';
 import { getAuthorByName } from '../../data/authors';
+import AdInArticle from '../../components/AdInArticle';
 
 export default function BlogPost({ slug }) {
   const [post, setPost] = useState(null);
@@ -221,11 +222,16 @@ export default function BlogPost({ slug }) {
               </p>
             </div>
 
+        {/* ✅ Insert Ad Here */}
+      <AdInArticle />
+
             {/* Main Content */}
             <div 
               className="blog-content text-gray-700 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
+             {/* ✅ Insert Ad Here */}
+      <AdInArticle />
           </article>
 
           {/* CTA Section */}
