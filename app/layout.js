@@ -8,8 +8,8 @@ import GoogleAnalytics from "./components/GoogleAnalytics";
 import MicrosoftClarity from "./components/MicrosoftClarity";
 import OneSignalInit from "./components/OneSignalInit";
 
-import CleanAdsOnRouteChange from "./components/CleanAdsOnRouteChange";
-import AdSenseAutoReload from "./components/AdSenseAutoReload";
+// import CleanAdsOnRouteChange from "./components/CleanAdsOnRouteChange";
+// import AdSenseAutoReload from "./components/AdSenseAutoReload";
 
 import Script from "next/script";
 
@@ -33,6 +33,7 @@ export default function RootLayout({ children }) {
         {/* 🚀 Load AdSense Auto Ads properly (fixes all issues) */}
         <Script
           id="adsense-auto"
+          className="adsense-auto-beforeInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6543173328208739"
           crossOrigin="anonymous"
           async
@@ -45,8 +46,8 @@ export default function RootLayout({ children }) {
         <OneSignalInit />
 
         {/* Fix Ad reload problems */}
-        <CleanAdsOnRouteChange />
-        <AdSenseAutoReload />
+        {/* <CleanAdsOnRouteChange />
+        <AdSenseAutoReload /> */}
 
         {children}
       </body>
