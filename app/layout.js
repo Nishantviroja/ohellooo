@@ -7,8 +7,11 @@ import integrations from "./data/integrations";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import OneSignalInit from "./components/OneSignalInit";
 import MicrosoftClarity from "./components/MicrosoftClarity";
-import GoogleAdSense from "./components/GoogleAdSense";
+
 import AdSenseAutoReload from "./components/AdSenseAutoReload";
+import CleanAdsOnRouteChange from "./components/CleanAdsOnRouteChange";
+
+import Script from "next/script";
 
 export const metadata = siteMetadata.home;
 
@@ -25,15 +28,29 @@ const sen = Sen({
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="bg-white">
-      <body className={`${bricolage.variable} ${sen.variable} bg-white antialiased`}>
-        
+      <head>
+        {/* REAL FIX: Load Auto Ads BEFORE page render */}
+        <Script
+          id="adsense-script"
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${integrations.ADSENSE_CLIENT_ID}`}
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
+      </head>
+
+      <body
+        className={`${bricolage.variable} ${sen.variable} bg-white antialiased`}
+      >
         {/* Analytics + Tracking */}
         <GoogleAnalytics GA_MEASUREMENT_ID={integrations.GA_MEASUREMENT_ID} />
         <MicrosoftClarity CLARITY_PROJECT_ID={integrations.CLARITY_PROJECT_ID} />
         <OneSignalInit />
 
-        {/* AdSense */}
-        <GoogleAdSense AD_CLIENT_ID={integrations.ADSENSE_CLIENT_ID} />
+        {/* FIX 1: Clean previous ads on route change */}
+        <CleanAdsOnRouteChange />
+
+        {/* FIX 2: Reload new ads after cleaning */}
         <AdSenseAutoReload />
 
         {children}

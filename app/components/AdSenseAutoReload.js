@@ -11,8 +11,8 @@ export default function AdSenseAutoReload() {
       if (typeof window !== "undefined" && window.adsbygoogle) {
         window.adsbygoogle.push({});
       }
-    } catch (e) {
-      console.log("AdSense reload error:", e);
+    } catch (err) {
+      console.log("AdSense reload error:", err);
     }
   }, [pathname]);
 
