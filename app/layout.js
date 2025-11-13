@@ -5,11 +5,11 @@ import siteMetadata from "./data/metadata";
 import integrations from "./data/integrations";
 
 import GoogleAnalytics from "./components/GoogleAnalytics";
-import OneSignalInit from "./components/OneSignalInit";
 import MicrosoftClarity from "./components/MicrosoftClarity";
+import OneSignalInit from "./components/OneSignalInit";
 
-import AdSenseAutoReload from "./components/AdSenseAutoReload";
 import CleanAdsOnRouteChange from "./components/CleanAdsOnRouteChange";
+import AdSenseAutoReload from "./components/AdSenseAutoReload";
 
 import Script from "next/script";
 
@@ -28,29 +28,24 @@ const sen = Sen({
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="bg-white">
-      <head>
-        {/* REAL FIX: Load Auto Ads BEFORE page render */}
+      <body className={`${bricolage.variable} ${sen.variable} bg-white antialiased`}>
+
+        {/* 🚀 Load AdSense Auto Ads properly (fixes all issues) */}
         <Script
-          id="adsense-script"
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${integrations.ADSENSE_CLIENT_ID}`}
+          id="adsense-auto"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6543173328208739"
           crossOrigin="anonymous"
+          async
           strategy="beforeInteractive"
         />
-      </head>
 
-      <body
-        className={`${bricolage.variable} ${sen.variable} bg-white antialiased`}
-      >
-        {/* Analytics + Tracking */}
+        {/* Tracking */}
         <GoogleAnalytics GA_MEASUREMENT_ID={integrations.GA_MEASUREMENT_ID} />
         <MicrosoftClarity CLARITY_PROJECT_ID={integrations.CLARITY_PROJECT_ID} />
         <OneSignalInit />
 
-        {/* FIX 1: Clean previous ads on route change */}
+        {/* Fix Ad reload problems */}
         <CleanAdsOnRouteChange />
-
-        {/* FIX 2: Reload new ads after cleaning */}
         <AdSenseAutoReload />
 
         {children}
