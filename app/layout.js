@@ -8,8 +8,8 @@ import GoogleAnalytics from "./components/GoogleAnalytics";
 import MicrosoftClarity from "./components/MicrosoftClarity";
 import OneSignalInit from "./components/OneSignalInit";
 
-import CleanAdsOnRouteChange from "./components/CleanAdsOnRouteChange";
-import AdSenseAutoReload from "./components/AdSenseAutoReload";
+import CleanAdsOnRouteChange from "./components/ads/CleanAdsOnRouteChange";
+import AdSenseAutoReload from "./components/ads/AdSenseAutoReload";
 
 import Script from "next/script";
 

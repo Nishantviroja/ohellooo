@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { fetchBlogPosts } from '../data/blogPosts';
 import BlogCard from '../components/BlogCard';
-import AdRectangle from '../components/AdRectangle';
-import Script from 'next/script';
-import { getAuthorByName } from '../data/authors';
+import AdFluid from '../components/ads/AdFluid';
 
 
 export default function Blog() {
@@ -28,49 +26,9 @@ export default function Blog() {
     loadBlogPosts();
   }, []);
 
-  const jsonLd = useMemo(() => {
-    if (!blogPosts || blogPosts.length === 0) return null;
-    // Use the first post to provide a representative BlogPosting for the list page
-    const first = blogPosts[0];
-    const authorData = getAuthorByName(first.author);
-    const url = `https://fizoval.com/blog/${first.slug}`;
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'NewsArticle',
-      headline: first.metadata?.title || first.title,
-      description: first.metadata?.desc || first.excerpt,
-      author: {
-        '@type': 'Person',
-        name: authorData.name,
-        url: authorData.linkedin,
-        description: authorData.about,
-      },
-      publisher: {
-        '@type': 'Organization',
-        name: 'Fizoval',
-        logo: {
-          '@type': 'ImageObject',
-          url: 'https://fizoval.com/FeaturingIMG.png',
-        },
-      },
-      image: first.image,
-      datePublished: first.date,
-      dateModified: first.date,
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': url,
-      },
-    };
-  }, [blogPosts]);
-
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
-      {jsonLd ? (
-        <Script id="blog-list-jsonld" type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </Script>
-      ) : null}
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50 py-8 px-4 md:px-8 flex items-center justify-center">
         <div className="max-w-3xl mx-auto text-center">
@@ -89,8 +47,6 @@ export default function Blog() {
       <section className="flex-1 bg-gray-50">
         <div className="container mx-auto px-4 md:px-8 py-10 gap-4">
 
-        <AdRectangle />
-
           {loading ? (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
@@ -101,9 +57,9 @@ export default function Blog() {
               {blogPosts.map((post, index) => (
                 <React.Fragment key={post.id}>
                   <BlogCard {...post} />
-                  {/* Insert Display ad after every 5 blog posts - looks like a blog card */}
+                  {/* Insert fluid ad after every 4 blog posts - adapts to grid layout */}
                   {(index + 1) % 4 === 0 && index !== blogPosts.length - 1 && (
-                    <AdRectangle />
+                    <AdFluid />
                   )}
                 </React.Fragment>
               ))}

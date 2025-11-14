@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import integrations from '../data/integrations';
+import integrations from '../../data/integrations';
 
 const AdRectangle = () => {
   const adRef = useRef(null);
@@ -30,7 +30,7 @@ const AdRectangle = () => {
   }, []);
 
   return (
-    <div className="overflow-hidden mb-8">
+    <div className="overflow-hidden border-2 border-blue-200 rounded-lg  bg-blue-50">
       <ins
         ref={adRef}
         className="adsbygoogle"

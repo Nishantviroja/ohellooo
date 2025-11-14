@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
 import ToolCard from '../components/ToolCard';
+import AdRectangle from '../components/ads/AdRectangle';
 import { aiTools } from '../data/aiTools';
 import { useRouter } from 'next/navigation';
 
@@ -374,15 +375,20 @@ export default function CategoryToolsPage({ categorySlug }) {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 gap-4">
                 {filteredTools.slice(0, visibleTools).map((tool, index) => (
-                  <ToolCard 
-                    key={tool.id || index}
-                    title={tool.name || tool.title || `Tool ${index + 1}`}
-                    excerpt={tool.description || tool.full_description?.substring(0, 150) || "No description available"}
-                    category={tool.category || "Uncategorized"}
-                    image_url={tool.image_url || getRandomImage()}
-                    slug={tool.id || tool.slug || index}
-                    external_link={tool.external_link || tool.internal_link || tool.url || "#"}
-                  />
+                  <React.Fragment key={tool.id || index}>
+                    <ToolCard 
+                      title={tool.name || tool.title || `Tool ${index + 1}`}
+                      excerpt={tool.description || tool.full_description?.substring(0, 150) || "No description available"}
+                      category={tool.category || "Uncategorized"}
+                      image_url={tool.image_url || getRandomImage()}
+                      slug={tool.id || tool.slug || index}
+                      external_link={tool.external_link || tool.internal_link || tool.url || "#"}
+                    />
+                    {/* Insert Display ad after every 4 tool cards */}
+                    {(index + 1) % 4 === 0 && index !== filteredTools.slice(0, visibleTools).length - 1 && (
+                      <AdRectangle />
+                    )}
+                  </React.Fragment>
                 ))}
               </div>
             )}

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import integrations from '../data/integrations';
+import integrations from '../../data/integrations';
 
 export default function CleanAdsOnRouteChange() {
   const pathname = usePathname();

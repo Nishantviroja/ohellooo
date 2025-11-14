@@ -11,9 +11,9 @@ import { notFound } from 'next/navigation';
 import { FaWhatsapp, FaLinkedinIn, FaRedditAlien } from 'react-icons/fa';
 import { FiLink } from 'react-icons/fi';
 import { getAuthorByName } from '../../data/authors';
-import AdInArticle from '../../components/AdInArticle';
-import AdMultiplex from '../../components/AdMultiplex';
-import AdSidebar from '../../components/AdSidebar';
+import AdInArticle from '../../components/ads/AdInArticle';
+import AdMultiplex from '../../components/ads/AdMultiplex';
+import AdSidebar from '../../components/ads/AdSidebar';
 
 export default function BlogPost({ slug }) {
   const [post, setPost] = useState(null);
