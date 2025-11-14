@@ -1,9 +1,11 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import integrations from '../data/integrations';
 
 const AdInArticle = () => {
   const adRef = useRef(null);
   const isAdPushed = useRef(false);
+  const isTestMode = integrations.ADSENSE_TEST_MODE;
 
   useEffect(() => {
     if (isAdPushed.current) return;
@@ -36,6 +38,7 @@ const AdInArticle = () => {
       data-ad-format="fluid"
       data-ad-client="ca-pub-6543173328208739"
       data-ad-slot="4086921999"
+      data-adtest={isTestMode ? 'on' : undefined}
     ></ins>
   );
 };

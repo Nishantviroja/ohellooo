@@ -26,6 +26,8 @@ const sen = Sen({
 });
 
 export default function RootLayout({ children }) {
+  const isTestMode = integrations.ADSENSE_TEST_MODE;
+
   return (
     <html lang="en" className="bg-white">
       <body className={`${bricolage.variable} ${sen.variable} bg-white antialiased`}>
@@ -36,7 +38,17 @@ export default function RootLayout({ children }) {
           crossOrigin="anonymous"
           async
           strategy="beforeInteractive"
+          data-adtest={isTestMode ? 'on' : undefined}
         />
+
+        {isTestMode && (
+          <Script id="adsense-test-mode" strategy="beforeInteractive">
+            {`
+              window.adsbygoogle = window.adsbygoogle || [];
+              window.adsbygoogle.pauseAdRequests = 0;
+            `}
+          </Script>
+        )}
 
         <GoogleAnalytics GA_MEASUREMENT_ID={integrations.GA_MEASUREMENT_ID} />
         <MicrosoftClarity CLARITY_PROJECT_ID={integrations.CLARITY_PROJECT_ID} />
