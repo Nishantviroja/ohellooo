@@ -22,6 +22,7 @@ const BlogCard = ({
           src={image}
           alt={title}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover"
         />
       </div>
@@ -55,6 +56,7 @@ const BlogCard = ({
                 src={getAuthorByName(author).avatar}
                 alt={author}
                 fill
+                sizes="32px"
                 className="object-cover"
               />
             </div>

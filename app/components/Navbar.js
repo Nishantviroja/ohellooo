@@ -20,9 +20,9 @@ export default function Navbar() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
-              <Link href="/" className="font-bricolage text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient" onClick={closeMobileMenu}>
-              {/* Fizoval - Your AI Insider */}
-               <Image src="/Fizoval.png" alt="Example" width={130} height={200} />
+            <Link href="/" className="font-bricolage text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient" onClick={closeMobileMenu}>
+            {/* Fizoval - Your AI Insider */}
+             <Image src="/Fizoval.png" alt="Fizoval" width={130} height={200} style={{ width: 'auto', height: 'auto' }} priority />
               </Link>
             </div>
             
@@ -126,7 +126,7 @@ export default function Navbar() {
           {/* Sidebar Footer */}
           <div className="p-4 border-t border-gray-200">
             <div className="text-center">
-              <Image src="/Fizoval.png" alt="Fizoval" width={100} height={150} className="mx-auto" />
+              <Image src="/Fizoval.png" alt="Fizoval" width={100} height={150} style={{ width: 'auto', height: 'auto' }} className="mx-auto" />
               <p className="text-sm text-gray-500 mt-2">Best AI Tools Directory</p>
             </div>
           </div>

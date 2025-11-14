@@ -40,7 +40,7 @@ const Footer = () => {
             <div className="flex-shrink-0 mb-4">
             <Link href="/" className="font-bricolage text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient">
             {/* Fizoval - Your AI Insider */}
-             <Image src="/Fizoval.png" alt="Example" width={150} height={200} />
+             <Image src="/Fizoval.png" alt="Fizoval" width={150} height={200} style={{ width: 'auto', height: 'auto' }} />
             </Link>
           </div>
            

@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import integrations from '../data/integrations';
 
-const AdInArticle = () => {
+const AdSidebar = ({ position = 'left' }) => {
   const adRef = useRef(null);
   const isAdPushed = useRef(false);
   const isTestMode = integrations.ADSENSE_TEST_MODE;
@@ -30,17 +30,20 @@ const AdInArticle = () => {
   }, []);
 
   return (
-    <ins
-      ref={adRef}
-      className="adsbygoogle"
-      style={{ display: 'block', textAlign: 'center', margin: '1rem 0' }}
-      data-ad-layout="in-article"
-      data-ad-format="fluid"
-      data-ad-client={integrations.ADSENSE_CLIENT_ID}
-      data-ad-slot={integrations.ADSENSE_SLOTS.IN_ARTICLE}
-      data-adtest={isTestMode ? 'on' : undefined}
-    ></ins>
+    <div className="sticky top-20 h-fit">
+      <ins
+        ref={adRef}
+        className="adsbygoogle"
+        style={{ display: 'block' }}
+        data-ad-client={integrations.ADSENSE_CLIENT_ID}
+        data-ad-slot={integrations.ADSENSE_SLOTS.SIDEBAR}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+        data-adtest={isTestMode ? 'on' : undefined}
+      ></ins>
+    </div>
   );
 };
 
-export default AdInArticle;
+export default AdSidebar;
+

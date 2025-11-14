@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
 
         <Script
           id="adsense-auto"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6543173328208739"
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${integrations.ADSENSE_CLIENT_ID}`}
           crossOrigin="anonymous"
           async
           strategy="beforeInteractive"

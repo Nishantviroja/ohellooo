@@ -8,11 +8,12 @@ import Link from 'next/link';
 import BlogCard from '../../components/BlogCard';
 import { fetchBlogPosts } from '../../data/blogPosts';
 import { notFound } from 'next/navigation';
-import Script from 'next/script';
 import { FaWhatsapp, FaLinkedinIn, FaRedditAlien } from 'react-icons/fa';
 import { FiLink } from 'react-icons/fi';
 import { getAuthorByName } from '../../data/authors';
 import AdInArticle from '../../components/AdInArticle';
+import AdMultiplex from '../../components/AdMultiplex';
+import AdSidebar from '../../components/AdSidebar';
 
 export default function BlogPost({ slug }) {
   const [post, setPost] = useState(null);
@@ -63,42 +64,21 @@ export default function BlogPost({ slug }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       <Navbar />
-      {post ? (
-        <Script id="blog-post-jsonld" type="application/ld+json">
-          {JSON.stringify((() => {
-            const authorData = getAuthorByName(post.author);
-            return {
-              '@context': 'https://schema.org',
-              '@type': 'NewsArticle',
-              headline: post.metadata?.title || post.title,
-              description: post.metadata?.desc || post.excerpt,
-              author: { 
-                '@type': 'Person', 
-                name: authorData.name,
-                url: `https://fizoval.com/blog/author/${authorData.id}`,
-                description: authorData.about,
-              },
-              publisher: {
-                '@type': 'Organization',
-                name: 'Fizoval',
-                logo: { '@type': 'ImageObject', url: 'https://fizoval.com/FeaturingIMG.png' },
-              },
-              image: post.image,
-              datePublished: post.date,
-              dateModified: post.date,
-              mainEntityOfPage: { '@type': 'WebPage', '@id': `https://fizoval.com/blog/${post.slug}` },
-            };
-          })())}
-        </Script>
-      ) : null}
       
-     
-      
-      {/* Main Content */}
+      {/* Main Content with Sidebar Layout */}
       <div className="container mx-auto px-4 py-6">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-8xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            {/* Left Sidebar - Sticky Ad (Hidden on mobile) */}
+            <div className="hidden lg:block lg:col-span-2">
+              <AdSidebar position="left" />
+            </div>
+
+            {/* Main Content Area - 8 columns */}
+            <div className="lg:col-span-8">
           {/* Article Header */}
-          <div className="mb-12">
+          <div className="mb-2">
             <div className="flex justify-between items-center mb-6">
               <span className="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full mr-3">
                 {post.category}
@@ -126,6 +106,7 @@ export default function BlogPost({ slug }) {
                     src={getAuthorByName(post.author).avatar}
                     alt={post.author}
                     fill
+                    sizes="48px"
                     className="object-cover"
                   />
                 </div>
@@ -205,6 +186,7 @@ export default function BlogPost({ slug }) {
     src={post.image} 
     alt={post.title} 
     fill 
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
     className="object-cover" 
     priority 
   />
@@ -234,8 +216,11 @@ export default function BlogPost({ slug }) {
       <AdInArticle />
           </article>
 
+          {/* Multiplex Ad */}
+          <AdMultiplex />
+
           {/* CTA Section */}
-          <div className="mt-16 mb-16">
+          <div className="mt-4 mb-8">
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center text-white shadow-2xl">
               <div className="max-w-3xl mx-auto">
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -261,12 +246,23 @@ export default function BlogPost({ slug }) {
 
           {/* Related Articles Suggestion */}
         
-            <h3 className="text-xl md:text-3xl font-bold text-black mb-6 mt-16 ">Continue Reading</h3>
+            <h3 className="text-xl md:text-3xl font-bold text-black mb-6 mt-6 ">Continue Reading</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {relatedPosts.map((relatedPost) => (
                 <BlogCard key={relatedPost.id} {...relatedPost} />
               ))}
             </div>
+
+            </div>
+            {/* End of Main Content Area (8 columns) */}
+
+            {/* Right Sidebar - Sticky Ad (Hidden on mobile) */}
+            <div className="hidden lg:block lg:col-span-2">
+              <AdSidebar position="right" />
+            </div>
+
+          </div>
+          {/* End of grid layout */}
          
         </div>
       </div>
