@@ -30,14 +30,14 @@ const AdRectangle = () => {
   }, []);
 
   return (
-    <div className="my-8 flex justify-center">
+    <div className="overflow-hidden mb-8">
       <ins
         ref={adRef}
         className="adsbygoogle"
-        style={{ display: 'block' }}
+        style={{ display: 'block', minHeight: '250px' }}
         data-ad-client={integrations.ADSENSE_CLIENT_ID}
         data-ad-slot={integrations.ADSENSE_SLOTS.RECTANGLE}
-        data-ad-format="rectangle"
+        data-ad-format="auto"
         data-full-width-responsive="true"
         data-adtest={isTestMode ? 'on' : undefined}
       ></ins>

@@ -22,7 +22,7 @@ export default function Navbar() {
             <div className="flex-shrink-0">
             <Link href="/" className="font-bricolage text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 animate-gradient" onClick={closeMobileMenu}>
             {/* Fizoval - Your AI Insider */}
-             <Image src="/Fizoval.png" alt="Fizoval" width={130} height={200} style={{ width: 'auto', height: 'auto' }} priority />
+             <Image src="/Fizoval.png" alt="Fizoval" width={120} height={200} style={{ width: 'auto', height: 'auto' }} priority />
               </Link>
             </div>
             

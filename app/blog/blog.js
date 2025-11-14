@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { fetchBlogPosts } from '../data/blogPosts';
 import BlogCard from '../components/BlogCard';
+import AdRectangle from '../components/AdRectangle';
 import Script from 'next/script';
 import { getAuthorByName } from '../data/authors';
 
@@ -86,7 +87,10 @@ export default function Blog() {
       </section>
       {/* Blog Cards Grid */}
       <section className="flex-1 bg-gray-50">
-        <div className="container mx-auto px-4 md:px-8 py-10">
+        <div className="container mx-auto px-4 md:px-8 py-10 gap-4">
+
+        <AdRectangle />
+
           {loading ? (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
@@ -94,8 +98,14 @@ export default function Blog() {
             </div>
           ) : blogPosts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.map((post) => (
-                <BlogCard key={post.id} {...post} />
+              {blogPosts.map((post, index) => (
+                <React.Fragment key={post.id}>
+                  <BlogCard {...post} />
+                  {/* Insert Display ad after every 5 blog posts - looks like a blog card */}
+                  {(index + 1) % 4 === 0 && index !== blogPosts.length - 1 && (
+                    <AdRectangle />
+                  )}
+                </React.Fragment>
               ))}
             </div>
           ) : (
