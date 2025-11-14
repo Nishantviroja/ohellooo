@@ -7,20 +7,19 @@ export default function CleanAdsOnRouteChange() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Remove old ads
     const ads = document.querySelectorAll("ins.adsbygoogle");
     ads.forEach((ad) => {
+      ad.removeAttribute('data-adsbygoogle-status');
+      ad.removeAttribute('data-ad-status');
       ad.innerHTML = "";
-      ad.style.display = "none";
     });
 
-    // Reset AdSense internal memory
     try {
       if (typeof window !== "undefined" && window.adsbygoogle) {
         window.adsbygoogle.length = 0;
       }
     } catch (err) {
-      console.log("Clean ads error:", err);
+      console.error('AdSense error:', err);
     }
   }, [pathname]);
 
