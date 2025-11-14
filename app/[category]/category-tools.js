@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
 import ToolCard from '../components/ToolCard';
-import AdRectangle from '../components/ads/AdRectangle';
+import AdFluid from '../components/ads/AdFluid';
 import { aiTools } from '../data/aiTools';
 import { useRouter } from 'next/navigation';
 
@@ -386,7 +386,7 @@ export default function CategoryToolsPage({ categorySlug }) {
                     />
                     {/* Insert Display ad after every 4 tool cards */}
                     {(index + 1) % 4 === 0 && index !== filteredTools.slice(0, visibleTools).length - 1 && (
-                      <AdRectangle />
+                       <AdFluid />
                     )}
                   </React.Fragment>
                 ))}

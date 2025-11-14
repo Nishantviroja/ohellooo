@@ -6,6 +6,8 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import HomeBlogSection from '../../components/HomeBlogSection';
 import { notFound } from 'next/navigation';
+import AdInArticle from '../../components/ads/AdInArticle';
+import AdFluid from '../../components/ads/AdFluid';
 
 const getCategoryFromSeoSlug = (slug) => slug.replace(/-ai-tools$/, '');
 const slugify = (str) => {
@@ -106,10 +108,10 @@ export default async function ToolDetailPage({ params }) {
         <div className="container mx-auto md:px-8 md:py-12">
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Image Gallery Section */}
-            <div className="w-full lg:w-5/12">
-              <div className="sticky top-8">
+            <div className="w-full lg:w-5/12 border-2">
+            
                 
-                <div className="p-4">
+                <div className="p-4 ">
                    
 
                  
@@ -146,12 +148,13 @@ export default async function ToolDetailPage({ params }) {
                   </div>
                 )}
                 </div>
-              </div>
+              
+              <AdInArticle />
             </div>
 
             {/* Product Details Section */}
             <div className="w-full lg:w-7/12">
-              <div className="sticky top-8 space-y-6 p-4">
+              <div className="space-y-6 p-4">
                
  {/* Category Badge */}
                 <div className="flex items-center gap-2 mb-2">
@@ -197,6 +200,7 @@ export default async function ToolDetailPage({ params }) {
                     </a> website.
 
                     </p>
+                    <AdInArticle />
 
                   </div>
                 )}
@@ -211,8 +215,9 @@ export default async function ToolDetailPage({ params }) {
        
       </main>
       
-      <div className="container mx-auto px-4 md:px-12 ">
+      <div className="container mx-auto px-4 md:px-12 pb-16">
          {/* CTA Section */}
+
          <div className="mt-16 mb-16">
             <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center text-white shadow-2xl">
               <div className="max-w-3xl mx-auto">
@@ -236,6 +241,8 @@ export default async function ToolDetailPage({ params }) {
               </div>
             </div>
           </div>
+
+            <AdFluid />
       </div>
 
       <HomeBlogSection />

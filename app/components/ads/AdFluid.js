@@ -30,7 +30,7 @@ const AdFluid = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-dashed border-blue-200">
+    <div className="w-full h-full flex justify-center bg-white rounded-xl shadow-md duration-300 hover:shadow-lg">
       <ins
         ref={adRef}
         className="adsbygoogle"

@@ -74,6 +74,7 @@ const Footer = () => {
                 <li><Link href="/terms-and-conditions" className="text-gray-600 hover:text-[#0066FF] transition-colors">Terms & Conditions</Link></li>
                 <li><Link href="/privacy-policy" className="text-gray-600 hover:text-[#0066FF] transition-colors">Privacy Policy</Link></li>
                 <li><Link href="/affiliate-disclosure" className="text-gray-600 hover:text-[#0066FF] transition-colors">Affiliate Disclosure</Link></li>
+                <li><Link href="/blog/rss.xml" className="text-gray-600 hover:text-[#0066FF] transition-colors">RSS Feed</Link></li>
               </ul>
             </div>
           </div>
