@@ -10,6 +10,7 @@ import OneSignalInit from "./components/OneSignalInit";
 
 import CleanAdsOnRouteChange from "./components/ads/CleanAdsOnRouteChange";
 import AdSenseAutoReload from "./components/ads/AdSenseAutoReload";
+import AutoAds from "./components/ads/AutoAds";
 
 import Script from "next/script";
 
@@ -32,6 +33,8 @@ export default function RootLayout({ children }) {
     <html lang="en" className="bg-white">
       <body className={`${bricolage.variable} ${sen.variable} bg-white antialiased`}>
 
+        {/* Google AdSense Auto Ads Script */}
+        {/* This enables Auto Ads including Vignettes and Anchor ads */}
         <Script
           id="adsense-auto"
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${integrations.ADSENSE_CLIENT_ID}`}
@@ -56,6 +59,7 @@ export default function RootLayout({ children }) {
 
         <CleanAdsOnRouteChange />
         <AdSenseAutoReload />
+        <AutoAds />
 
         {children}
       </body>
