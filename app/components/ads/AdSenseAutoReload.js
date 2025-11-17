@@ -37,7 +37,7 @@ export default function AdSenseAutoReload() {
       } catch (err) {
         console.error('AdSense error:', err);
       }
-    }, 200);
+    }, 300);
 
     return () => clearTimeout(timer);
   }, [pathname]);
