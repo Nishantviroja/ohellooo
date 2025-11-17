@@ -10,7 +10,7 @@ import OneSignalInit from "./components/OneSignalInit";
 
 import CleanAdsOnRouteChange from "./components/ads/CleanAdsOnRouteChange";
 import AdSenseAutoReload from "./components/ads/AdSenseAutoReload";
-import AutoAds from "./components/ads/AutoAds";
+import GoogleAdSense from "./components/ads/GoogleAdSense";
 
 import Script from "next/script";
 
@@ -32,18 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="bg-white">
       <body className={`${bricolage.variable} ${sen.variable} bg-white antialiased`}>
-
-        {/* Google AdSense Auto Ads Script */}
-        {/* This enables Auto Ads including Vignettes and Anchor ads */}
-        <Script
-          id="adsense-auto"
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${integrations.ADSENSE_CLIENT_ID}`}
-          crossOrigin="anonymous"
-          async
-          strategy="beforeInteractive"
-          data-adtest={isTestMode ? 'on' : undefined}
-        />
-
+        {/* Test mode script must run BEFORE AdSense loads */}
         {isTestMode && (
           <Script id="adsense-test-mode" strategy="beforeInteractive">
             {`
@@ -53,14 +42,19 @@ export default function RootLayout({ children }) {
           </Script>
         )}
 
+        {/* AdSense Auto Ads - loads after page becomes interactive */}
+        <GoogleAdSense AD_CLIENT_ID={integrations.ADSENSE_CLIENT_ID} />
+
+        {/* Ad Management Components */}
+        <CleanAdsOnRouteChange />
+        <AdSenseAutoReload />
+
+        {/* Analytics & Tracking Scripts */}
         <GoogleAnalytics GA_MEASUREMENT_ID={integrations.GA_MEASUREMENT_ID} />
         <MicrosoftClarity CLARITY_PROJECT_ID={integrations.CLARITY_PROJECT_ID} />
         <OneSignalInit />
 
-        <CleanAdsOnRouteChange />
-        <AdSenseAutoReload />
-        <AutoAds />
-
+        {/* Page Content */}
         {children}
       </body>
     </html>
