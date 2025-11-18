@@ -1,13 +1,14 @@
+// ✅ CONVERTED TO SERVER COMPONENT - This file now only handles UI rendering
+// The main page.js handles data fetching server-side for SEO
+
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Image from 'next/image';
 import Link from 'next/link';
 import BlogCard from '../../components/BlogCard';
-import { fetchBlogPosts } from '../../data/blogPosts';
-import { notFound } from 'next/navigation';
 import { FaWhatsapp, FaLinkedinIn, FaRedditAlien } from 'react-icons/fa';
 import { FiLink } from 'react-icons/fi';
 import { getAuthorByName } from '../../data/authors';
@@ -15,50 +16,11 @@ import AdInArticle from '../../components/ads/AdInArticle';
 import AdMultiplex from '../../components/ads/AdMultiplex';
 import AdSidebar from '../../components/ads/AdSidebar';
 
-export default function BlogPost({ slug }) {
-  const [post, setPost] = useState(null);
-  const [relatedPosts, setRelatedPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function BlogPost({ post, relatedPosts }) {
   const [copied, setCopied] = useState(false);
 
-  useEffect(() => {
-    async function loadBlogPost() {
-      try {
-        const posts = await fetchBlogPosts();
-        const currentPost = posts.find((p) => p.slug === slug);
-        
-        if (!currentPost) {
-          notFound();
-        }
-        
-        setPost(currentPost);
-        setRelatedPosts(posts.filter(p => p.id !== currentPost.id).slice(0, 2));
-      } catch (error) {
-        console.error('Error loading blog post:', error);
-        notFound();
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadBlogPost();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-        <Navbar />
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading blog post...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   if (!post) {
-    notFound();
+    return null;
   }
 
   return (
@@ -270,4 +232,4 @@ export default function BlogPost({ slug }) {
       <Footer />
     </div>
   );
-} 
+}

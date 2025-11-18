@@ -7,6 +7,29 @@ function getCategoryFromSlug(slug) {
   return slug.replace(/-ai-tools$/, '');
 }
 
+// ✅ FIXED: Added generateStaticParams for SSG with ISR
+export async function generateStaticParams() {
+  // Extract unique categories from aiTools
+  const categorySet = new Set();
+  
+  aiTools.forEach(tool => {
+    if (tool.category) {
+      const categorySlug = tool.category
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-') + '-ai-tools';
+      categorySet.add(categorySlug);
+    }
+  });
+  
+  return Array.from(categorySet).map(slug => ({
+    category: slug,
+  }));
+}
+
+// ✅ Enable ISR - pages regenerate daily
+export const revalidate = 86400;
+
 // Generate metadata for each category
 export async function generateMetadata({ params }) {
   const { category } = await params;

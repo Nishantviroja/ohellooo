@@ -24,8 +24,7 @@ export default function robots() {
       },
     ],
     sitemap: [
-      'https://fizoval.com/sitemap.xml',
-      'https://fizoval.com/blog-sitemap.xml', // add more if needed
+      'https://fizoval.com/sitemap.xml'
     ],
     
   }

@@ -70,19 +70,47 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// ✅ FIXED: Added generateStaticParams for SSG with ISR
+export async function generateStaticParams() {
+  try {
+    const posts = await fetchBlogPosts();
+    return posts.map((post) => ({
+      slug: post.slug,
+    }));
+  } catch (error) {
+    console.error('Error generating static params for blog posts:', error);
+    return [];
+  }
+}
+
+// ✅ Enable ISR - pages regenerate every hour
+export const revalidate = 3600;
+
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
 
-  // Ensure 404 status by resolving post server-side
+  // ✅ FIXED: Fetch post data server-side and pass to client component
+  let post = null;
+  let relatedPosts = [];
+  
   try {
     const posts = await fetchBlogPosts();
-    const post = posts.find((p) => p.slug === slug);
+    post = posts.find((p) => p.slug === slug);
+    
     if (!post) {
       notFound();
     }
-  } catch {
+    
+    // Get related posts (excluding current post)
+    relatedPosts = posts
+      .filter(p => p.id !== post.id)
+      .slice(0, 2);
+      
+  } catch (error) {
+    console.error('Error fetching blog post:', error);
     notFound();
   }
 
-  return <BlogPost slug={slug} />;
+  // Pass data as props to client component
+  return <BlogPost post={post} relatedPosts={relatedPosts} />;
 }

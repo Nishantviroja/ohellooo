@@ -2,6 +2,15 @@
 
 import Link from 'next/link';
 
+// ✅ ADDED: Metadata for 404 page
+export const metadata = {
+  title: '404 - Page Not Found | Fizoval',
+  description: 'The page you are looking for does not exist. Return to Fizoval homepage to explore AI tools.',
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function NotFound() {
   return (

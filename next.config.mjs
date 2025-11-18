@@ -1,8 +1,21 @@
 const nextConfig = {
-  output: 'export',
+  // ✅ REMOVED 'output: export' to enable SSR/ISR/SSG
+  // This allows dynamic page generation and proper SEO
   trailingSlash: true,
-   images: { unoptimized: true },
-  distDir: 'build', // moves `.next` to `out`
+  
+  images: { 
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+  
+  // Enable experimental features for better performance
+  experimental: {
+    optimizeCss: true,
+  },
 };
 
-module.exports = nextConfig;
+export default nextConfig;

@@ -3,8 +3,16 @@ import { fetchBlogPosts } from '../../../data/blogPosts';
 import { notFound } from 'next/navigation';
 import AuthorBio from './authorBio';
 
-// Render this route dynamically on each request to ensure fresh blog counts
-export const dynamic = 'force-dynamic';
+// ✅ FIXED: Changed from force-dynamic to ISR for better performance
+export const revalidate = 3600; // Revalidate every hour
+
+// ✅ ADDED: generateStaticParams for pre-generation
+export async function generateStaticParams() {
+  const authors = getAllAuthors();
+  return authors.map((author) => ({
+    id: author.id,
+  }));
+}
 
 // Generate metadata for each author page
 export async function generateMetadata({ params }) {

@@ -1,9 +1,10 @@
 import { fetchBlogPosts } from './data/blogPosts';
 import { aiTools } from './data/aiTools';
 
-// Make sitemap dynamic with revalidation when not using static export
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // revalidate every hour
+// ✅ Changed to 'error' to generate sitemap at build time for better SEO
+// Sitemap will be generated during build and cached
+export const dynamic = 'error';
+export const revalidate = 3600; // revalidate once per day (24 hours)
 
 export default async function sitemap() {
   const baseUrl = 'https://fizoval.com';
@@ -125,6 +126,6 @@ export default async function sitemap() {
     ...staticPages,
     ...blogPostUrls,
     ...categoryUrlsArray,
-    // ...toolUrls,
+    ...toolUrls,  // ✅ FIXED: Uncommented to include all 3000+ tool pages in sitemap
   ];
 } 

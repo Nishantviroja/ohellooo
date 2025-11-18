@@ -1,8 +1,15 @@
-// Fetch blog posts from GitHub repository
+// ✅ FIXED: Fetch blog posts from GitHub repository with proper caching for SSG
 async function fetchBlogPosts() {
   try {
-    // Fetch from your GitHub repository
-    const response = await fetch('https://raw.githubusercontent.com/Nishantviroja/blogdata/main/blogPosts.json', { cache: 'no-store' });
+    // Fetch from your GitHub repository with revalidation
+    // This allows Next.js to cache the data during build and revalidate periodically
+    const response = await fetch(
+      'https://raw.githubusercontent.com/Nishantviroja/blogdata/main/blogPosts.json', 
+      { 
+        next: { revalidate: 3600 }, // Revalidate every hour with ISR
+        cache: 'force-cache' // Use cache during build
+      }
+    );
     
     if (!response.ok) {
       throw new Error('Failed to fetch blog posts');

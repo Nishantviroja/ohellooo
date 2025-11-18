@@ -18,7 +18,32 @@ const slugify = (str) => {
     .replace(/-+/g, '-');        // collapse multiple dashes
 };
 
-// Removed generateStaticParams to avoid prebuilding 3000+ tool pages. Pages will be generated on-demand.
+// ✅ FIXED: Added generateStaticParams for ISR-based generation
+// This generates pages on-demand with ISR, not all at build time
+export async function generateStaticParams() {
+  // Generate params for the top 100 most popular/important tools
+  // Others will be generated on-demand with ISR
+  const topTools = aiTools.slice(0, 100);
+  
+  return topTools.map(tool => {
+    if (!tool.category || !tool.name) return null;
+    
+    const categorySlug = tool.category
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-') + '-ai-tools';
+    const toolSlug = slugify(tool.name);
+    
+    return {
+      category: categorySlug,
+      tool: toolSlug,
+    };
+  }).filter(Boolean);
+}
+
+// ✅ Enable ISR - on-demand page generation with 24-hour revalidation
+export const dynamicParams = true; // Allow dynamic params for tools not in generateStaticParams
+export const revalidate = 86400; // Revalidate once per day
 
 // Generate metadata for each tool detail page
 export async function generateMetadata({ params }) {
@@ -43,9 +68,11 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const title = `${foundTool.name || foundTool.title} - Best ${foundTool.category} AI Tool | Fizoval`;
-  const description = `${foundTool.name || foundTool.title} is a powerful ${foundTool.category.toLowerCase()} AI tool. That helps you ${foundTool.description}`;
-  const keywords = `${foundTool.name?.toLowerCase()}, ${foundTool.category?.toLowerCase()}, ai tools, artificial intelligence, ${foundTool.category?.toLowerCase()} software, best ${foundTool.category?.toLowerCase()} tools, Best AI tools Directory - Fizoval `;
+  // ✅ IMPROVED: More unique and descriptive metadata per page
+  const pricingText = foundTool.pricing_model === 'Free' ? 'Free' : foundTool.pricing_model === 'Freemium' ? 'Free & Paid Plans' : 'Paid';
+  const title = `${foundTool.name || foundTool.title} - ${foundTool.category} AI Tool (${pricingText}) | Fizoval`;
+  const description = `Discover ${foundTool.name || foundTool.title}: A ${pricingText.toLowerCase()} ${foundTool.category.toLowerCase()} AI tool that helps you ${foundTool.description}. ${foundTool.full_description ? foundTool.full_description.substring(0, 100) + '...' : 'Learn features, pricing & more.'}`;
+  const keywords = `${foundTool.name?.toLowerCase()}, ${foundTool.category?.toLowerCase()} ai tool, ${foundTool.pricing_model?.toLowerCase()} ai software, ${foundTool.description.split(' ').slice(0, 3).join(' ')}`;
 
   return {
     title,
@@ -108,7 +135,7 @@ export default async function ToolDetailPage({ params }) {
         <div className="container mx-auto md:px-8 md:py-12">
           <div className="flex flex-col lg:flex-row gap-6">
             {/* Image Gallery Section */}
-            <div className="w-full lg:w-5/12 border-2">
+            <div className="w-full lg:w-5/12 ">
             
                 
                 <div className="p-4 ">
@@ -148,8 +175,9 @@ export default async function ToolDetailPage({ params }) {
                   </div>
                 )}
                 </div>
-              
-              <AdInArticle />
+              <div className=" m-4rounded-2xl ">
+                <AdInArticle />
+              </div>
             </div>
 
             {/* Product Details Section */}
@@ -175,32 +203,39 @@ export default async function ToolDetailPage({ params }) {
    
                 
 
-                {/* Full Description */}
+                {/* Full Description - ✅ IMPROVED: More unique content per page */}
                 {foundTool.full_description && (
                   <div>
-                    <h2 className="text-xl font-bold text-gray-900 my-2">About this tool</h2>
+                    <h2 className="text-xl font-bold text-gray-900 my-2">About {foundTool.name}</h2>
                     <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg my-2 text-justify">
-                      {foundTool.name} is an innovative tool in the {foundTool.category} category. It is designed to help users with {foundTool.description}, making complex tasks much simpler and more accessible. By using advanced AI technology, {foundTool.name} allows individuals and businesses to save time, reduce costs, and improve the overall quality of their work.
-                    </p>
-                     <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg my-2 text-justify">
                      {foundTool.full_description}
                     </p>
 
+                    {/* ✅ ADDED: More unique sections for better SEO */}
+                    <h2 className="text-xl font-bold text-gray-900 my-2 mt-4">Key Features</h2>
+                    <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg my-2 text-justify">
+                      {foundTool.name} specializes in {foundTool.description}. This {foundTool.category.toLowerCase()} tool leverages advanced AI technology to streamline workflows, enhance productivity, and deliver professional-grade results. Whether you're a beginner or an experienced professional, {foundTool.name} provides the capabilities you need to achieve your goals efficiently.
+                    </p>
+
+                    <h2 className="text-xl font-bold text-gray-900 my-2 mt-4">Who Should Use {foundTool.name}?</h2>
+                    <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg my-2 text-justify">
+                      This tool is ideal for professionals, teams, and businesses looking to {foundTool.description}. {foundTool.name} is particularly beneficial for those in the {foundTool.category.toLowerCase()} industry who want to automate repetitive tasks, reduce manual effort, and improve overall output quality. The intuitive interface makes it accessible to users of all skill levels.
+                    </p>
                      
-                     <h2 className="text-xl font-bold text-gray-900 my-2 mt-4">Pricing</h2>
+                     <h2 className="text-xl font-bold text-gray-900 my-2 mt-4">Pricing & Plans</h2>
                       <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg my-2 text-justify">
                   
-{foundTool.name} is available under a {foundTool.pricing_model} pricing model. This makes it flexible for users who want to test it out as well as those who need advanced features for professional or large-scale projects. For full details on pricing and features, you can visit the <a
+{foundTool.name} operates on a {foundTool.pricing_model} pricing model. {foundTool.pricing_model === 'Free' ? 'The free tier allows you to explore core features at no cost, making it perfect for individuals and small projects.' : foundTool.pricing_model === 'Freemium' ? 'The freemium model provides free access to basic features, with premium tiers available for advanced functionality and higher usage limits.' : 'The paid subscription unlocks the full suite of professional features, advanced capabilities, and priority support.'} For comprehensive pricing details, feature comparisons, and to sign up, visit the official <a
                       href={foundTool.external_link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className=" text-blue-600 hover:text-blue-700 transition-colors duration-200"
+                      className=" text-blue-600 hover:text-blue-700 transition-colors duration-200 font-semibold"
                     >
-                       {foundTool.name}
-                    </a> website.
+                       {foundTool.name} website
+                    </a>.
 
                     </p>
-                    <AdInArticle />
+                    
 
                   </div>
                 )}
