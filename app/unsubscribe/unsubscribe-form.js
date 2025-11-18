@@ -56,7 +56,7 @@ export default function UnsubscribeForm() {
         </h1>
 
         <p className="text-gray-600 font-sen text-center mb-8">
-          We're sorry to see you go. Please confirm you want to unsubscribe from our mailing list.
+          We&apos;re sorry to see you go. Please confirm you want to unsubscribe from our mailing list.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -105,7 +105,7 @@ export default function UnsubscribeForm() {
            {/* What Happens Next Section */}
         <div className="mt-1 mb-3 text-gray-600 font-sen text-sm space-y-2 ">
           <h2 className="font-bold text-base text-gray-800 mb-3">What Happens Next</h2>
-          <p>✓ You'll be removed from our mailing list within 24–48 hours</p>
+          <p>✓ You&apos;ll be removed from our mailing list within 24–48 hours</p>
           <p>✓ You may still receive transactional emails</p>
           <p>✓ You can resubscribe anytime from our website</p>
         </div>

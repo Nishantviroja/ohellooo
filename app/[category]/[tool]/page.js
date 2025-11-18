@@ -214,7 +214,7 @@ export default async function ToolDetailPage({ params }) {
                     {/* ✅ ADDED: More unique sections for better SEO */}
                     <h2 className="text-xl font-bold text-gray-900 my-2 mt-4">Key Features</h2>
                     <p className="text-gray-700 leading-relaxed whitespace-pre-line text-lg my-2 text-justify">
-                      {foundTool.name} specializes in {foundTool.description}. This {foundTool.category.toLowerCase()} tool leverages advanced AI technology to streamline workflows, enhance productivity, and deliver professional-grade results. Whether you're a beginner or an experienced professional, {foundTool.name} provides the capabilities you need to achieve your goals efficiently.
+                      {foundTool.name} specializes in {foundTool.description}. This {foundTool.category.toLowerCase()} tool leverages advanced AI technology to streamline workflows, enhance productivity, and deliver professional-grade results. Whether you&apos;re a beginner or an experienced professional, {foundTool.name} provides the capabilities you need to achieve your goals efficiently.
                     </p>
 
                     <h2 className="text-xl font-bold text-gray-900 my-2 mt-4">Who Should Use {foundTool.name}?</h2>
