@@ -83,8 +83,8 @@ export async function generateStaticParams() {
   }
 }
 
-// ✅ Enable ISR - pages regenerate every hour
-export const revalidate = 3600;
+// ✅ Enable ISR - pages regenerate every minute
+export const revalidate = 60;
 
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;

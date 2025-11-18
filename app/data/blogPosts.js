@@ -1,21 +1,57 @@
-// ✅ FIXED: Fetch blog posts from GitHub repository with proper caching for SSG
-async function fetchBlogPosts() {
+// ✅ FIXED: Improved blog post fetching with proper cache control
+// 
+// When called SERVER-SIDE (in Server Components):
+// - Uses ISR with 1-hour revalidation
+// - Caches at build time with force-cache
+// 
+// When called CLIENT-SIDE (in useEffect/event handlers):
+// - Uses no-store to always fetch fresh data
+// - Bypasses browser cache
+
+async function fetchBlogPosts(options = {}) {
+  const { clientSide = false } = options;
+  
   try {
-    // Fetch from your GitHub repository with revalidation
-    // This allows Next.js to cache the data during build and revalidate periodically
-    const response = await fetch(
-      'https://raw.githubusercontent.com/Nishantviroja/blogdata/main/blogPosts.json', 
-      { 
-        next: { revalidate: 3600 }, // Revalidate every hour with ISR
-        cache: 'force-cache' // Use cache during build
-      }
-    );
+    // Detect if running on client vs server
+    const isClientSide = clientSide || typeof window !== 'undefined';
+    
+    // Different cache strategies for client vs server
+    const fetchOptions = isClientSide
+      ? {
+          // ✅ CLIENT-SIDE: Always fetch fresh data, no caching
+          cache: 'no-store',
+          // Add timestamp to prevent any caching layers
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+          }
+        }
+      : {
+          // ✅ SERVER-SIDE: Use ISR with 1-minute revalidation
+          next: { revalidate: 60 }, // Revalidate every minute
+          cache: 'force-cache' // Cache during build
+        };
+    
+    // Add cache-busting query param for client-side requests
+    const url = isClientSide
+      ? `https://raw.githubusercontent.com/Nishantviroja/blogdata/main/blogPosts.json?t=${Date.now()}`
+      : 'https://raw.githubusercontent.com/Nishantviroja/blogdata/main/blogPosts.json';
+    
+    const response = await fetch(url, fetchOptions);
     
     if (!response.ok) {
-      throw new Error('Failed to fetch blog posts');
+      throw new Error(`Failed to fetch blog posts: ${response.status} ${response.statusText}`);
     }
     
     const data = await response.json();
+    
+    // Validate data structure
+    if (!Array.isArray(data)) {
+      console.error('Blog posts data is not an array:', data);
+      return [];
+    }
+    
     return data;
   } catch (error) {
     console.error('Error fetching blog posts:', error);
@@ -29,4 +65,4 @@ export { fetchBlogPosts };
 
 // For backward compatibility, export empty array as default
 const blogPosts = [];
-export default blogPosts; 
+export default blogPosts;

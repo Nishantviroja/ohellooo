@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import BlogCard from './BlogCard';
-import { fetchBlogPosts } from '../data/blogPosts';
 
 export default function HomeBlogSection() {
   const [posts, setPosts] = useState([]);
@@ -12,9 +11,17 @@ export default function HomeBlogSection() {
   useEffect(() => {
     async function load() {
       try {
-        const all = await fetchBlogPosts();
+        // ✅ FIXED: Use API route instead of direct GitHub fetch (avoids CORS issues)
+        const response = await fetch('/api/blog-posts');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch blog posts');
+        }
+        
+        const all = await response.json();
         setPosts(Array.isArray(all) ? all.slice(0, 3) : []);
       } catch (e) {
+        console.error('Error loading blog posts:', e);
         setPosts([]);
       } finally {
         setLoading(false);
@@ -25,7 +32,7 @@ export default function HomeBlogSection() {
 
   return (
     <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-8">
         <div className="flex items-center justify-between mb-8 ">
         <h2 className="font-bricolage text-3xl md:text-4xl font-bold text-center text-gray-800">
         Latest from the Blog
@@ -53,5 +60,3 @@ export default function HomeBlogSection() {
     </section>
   );
 }
-
-

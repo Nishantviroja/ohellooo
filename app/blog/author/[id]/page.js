@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import AuthorBio from './authorBio';
 
 // ✅ FIXED: Changed from force-dynamic to ISR for better performance
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 60; // Revalidate every minute
 
 // ✅ ADDED: generateStaticParams for pre-generation
 export async function generateStaticParams() {
