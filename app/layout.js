@@ -12,6 +12,8 @@ import CleanAdsOnRouteChange from "./components/ads/CleanAdsOnRouteChange";
 import AdSenseAutoReload from "./components/ads/AdSenseAutoReload";
 import GoogleAdSense from "./components/ads/GoogleAdSense";
 
+
+
 import Script from "next/script";
 
 export const metadata = siteMetadata.home;

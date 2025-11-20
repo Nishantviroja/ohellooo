@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import HomeToolsSection from './components/HomeToolsSection';
 import HomeBlogSection from './components/HomeBlogSection';
 
+
+
 // ✅ Homepage metadata is defined in layout.js (siteMetadata.home)
 // This ensures the homepage has proper SEO tags
 
