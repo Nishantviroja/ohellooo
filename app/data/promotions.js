@@ -1,11 +1,11 @@
 const promotions = {
   PROMOTION_MODE: true, // true = show, false = hide
   
-  PROMOTION_LINK: "https://pplx.ai/infomarket70038",
+  PROMOTION_LINK: "https://www.reddit.com/r/AI_Trend_Insider/",
   
-  PROMOTION_TEXT: "Perplexity’s Comet AI Browser is now available on Android",
+  PROMOTION_TEXT: "Let’s build an AI community for enthusiasts like us, where we learn and share together",
   
-  BUTTON_TEXT: "Try Comet",
+  BUTTON_TEXT: "Join Now",
 };
 
 export default promotions;
