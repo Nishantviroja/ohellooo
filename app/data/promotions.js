@@ -5,7 +5,7 @@ const promotions = {
   
   PROMOTION_TEXT: "Let’s build an AI community for enthusiasts like us, where we learn and share together",
   
-  BUTTON_TEXT: "Join Now",
+  BUTTON_TEXT: "Join Now!",
 };
 
 export default promotions;
