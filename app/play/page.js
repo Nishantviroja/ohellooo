@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import GAMEZOP_PARTNER_ID from '../data/gamezop';
@@ -93,7 +94,7 @@ export default function PlayPage() {
       <Navbar />
       
       {/* Hero Section */}
-      <div className="relative py-16 md:py-20 overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <div className="relative py-10 md:py-16 overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-[0.08]" style={{
           backgroundImage: 'radial-gradient(circle, #4F46E5 2px, transparent 2px)',
@@ -101,15 +102,11 @@ export default function PlayPage() {
         }}></div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-block mb-6">
-            <span className="px-6 py-3 rounded-full text-sm font-semibold bg-white text-blue-600 border border-blue-100 shadow-lg">
-              🎮 {games.length}+ Free Games
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-7xl font-bold text-gray-900 mb-4 md:mb-6">
+          
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-2">
             Play Free <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 animate-gradient">Online Games</span>
           </h1>
-          <p className="text-lg md:text-2xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
+          <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8">
             Discover amazing games. Play instantly, no downloads required!
           </p>
           
@@ -142,7 +139,7 @@ export default function PlayPage() {
             </div>
             {searchQuery && (
               <p className="mt-3 text-gray-600">
-                Found <strong>{filteredGames.length}</strong> game{filteredGames.length !== 1 ? 's' : ''} matching "{searchQuery}"
+                Found <strong>{filteredGames.length}</strong> game{filteredGames.length !== 1 ? 's' : ''} matching &quot;{searchQuery}&quot;
               </p>
             )}
           </div>
@@ -228,19 +225,6 @@ export default function PlayPage() {
                           </button>
                         </div>
                       )}
-                      {hasMore && isExpanded && (
-                        <div className="flex justify-center mt-8">
-                          <button
-                            onClick={() => toggleCategory(category)}
-                            className="px-8 py-4 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center gap-2"
-                          >
-                            Show Less
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
-                            </svg>
-                          </button>
-                        </div>
-                      )}
                     </section>
                   );
                 })}
@@ -257,9 +241,9 @@ export default function PlayPage() {
                   <p className="text-gray-600">{filteredGames.length} games available</p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+              <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 md:gap-3">
                 {filteredGames.map((game) => (
-                  <GameCard key={game.code || game.id} game={game} onClick={() => openGame(game)} />
+                  <GameCard key={game.code || game.id} game={game} onClick={() => openGame(game)} compact />
                 ))}
               </div>
             </section>
@@ -299,7 +283,7 @@ export default function PlayPage() {
 }
 
 // Game Card Component
-function GameCard({ game, onClick, featured = false, isNew = false }) {
+function GameCard({ game, onClick, featured = false, isNew = false, compact = false }) {
   return (
     <div
       className={`group relative bg-white rounded-2xl shadow-lg border-2 border-gray-100 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-blue-300 ${
@@ -320,33 +304,32 @@ function GameCard({ game, onClick, featured = false, isNew = false }) {
 
       {/* Thumbnail */}
       <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100">
-        <img
-          src={game.thumbnail || game.assets?.cover || game.image}
-          alt={game.name?.en || game.title}
+        <Image
+          src={game.thumbnail || game.assets?.cover || game.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%234F46E5"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="60" fill="white"%3E🎮%3C/text%3E%3C/svg%3E'}
+          alt={game.name?.en || game.title || 'Game thumbnail'}
+          width={400}
+          height={400}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          onError={(e) => {
-            e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%234F46E5"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="60" fill="white"%3E🎮%3C/text%3E%3C/svg%3E';
-          }}
+          unoptimized
         />
         {/* Hover overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-          <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-            <div className="bg-white/90 px-6 py-3 rounded-full text-gray-900 font-bold flex items-center gap-2 shadow-xl">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-              </svg>
-              Play Now
-            </div>
+        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+          <div className="transform scale-75 group-hover:scale-100 transition-transform duration-300">
+            <svg className="w-12 h-12 md:w-16 md:h-16 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+            </svg>
           </div>
         </div>
       </div>
 
       {/* Game Info */}
-      <div className="p-4">
-        <h3 className="font-bold text-sm md:text-base text-gray-900 truncate group-hover:text-blue-600 transition-colors">
-          {game.name?.en || game.title || 'Unknown Game'}
-        </h3>
-      </div>
+      {!compact && (
+        <div className="p-4">
+          <h3 className="font-bold text-sm md:text-base text-gray-900 truncate group-hover:text-blue-600 transition-colors">
+            {game.name?.en || game.title || 'Unknown Game'}
+          </h3>
+        </div>
+      )}
     </div>
   );
 }
