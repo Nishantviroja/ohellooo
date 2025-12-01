@@ -4,6 +4,23 @@ frontend:
     preBuild:
       commands:
         - npm ci
+        - echo "User-agent: *" > public/robots.txt
+        - echo "Allow: /" >> public/robots.txt
+        - echo "Disallow: /private/" >> public/robots.txt
+        - echo "" >> public/robots.txt
+        - echo "User-agent: Googlebot" >> public/robots.txt
+        - echo "Allow: /" >> public/robots.txt
+        - echo "Disallow: /private/" >> public/robots.txt
+        - echo "" >> public/robots.txt
+        - echo "User-agent: Googlebot-Image" >> public/robots.txt
+        - echo "Allow: /" >> public/robots.txt
+        - echo "Disallow: /private/" >> public/robots.txt
+        - echo "" >> public/robots.txt
+        - echo "User-agent: Bingbot" >> public/robots.txt
+        - echo "Allow: /" >> public/robots.txt
+        - echo "Disallow: /private/" >> public/robots.txt
+        - echo "" >> public/robots.txt
+        - echo "Sitemap: https://fizoval.com/sitemap.xml" >> public/robots.txt
     build:
       commands:
         - npm run build
@@ -16,26 +33,18 @@ frontend:
       - node_modules/**/*
       - .next/cache/**/*
   customHeaders:
-    - pattern: '**/*'
-      headers:
-        - key: 'X-Frame-Options'
-          value: 'DENY'
-        - key: 'X-Content-Type-Options'
-          value: 'nosniff'
-        - key: 'Referrer-Policy'
-          value: 'strict-origin-when-cross-origin'
-    - pattern: '/robots.txt'
+    - pattern: '**/*.txt'
       headers:
         - key: 'Content-Type'
           value: 'text/plain; charset=utf-8'
         - key: 'Cache-Control'
-          value: 'public, max-age=3600, must-revalidate'
+          value: 'public, max-age=0, must-revalidate'
         - key: 'Access-Control-Allow-Origin'
           value: '*'
-    - pattern: '/sitemap.xml'
+    - pattern: '**/*.xml'
       headers:
         - key: 'Content-Type'
           value: 'application/xml; charset=utf-8'
         - key: 'Cache-Control'
-          value: 'public, max-age=3600, must-revalidate'
+          value: 'public, max-age=0, must-revalidate'
 

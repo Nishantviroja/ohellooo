@@ -16,7 +16,12 @@ import GoogleAdSense from "./components/ads/GoogleAdSense";
 
 import Script from "next/script";
 
-export const metadata = siteMetadata.home;
+export const metadata = {
+  ...siteMetadata.home,
+  verification: {
+    google: 'inam3wn74vU-fc7jfQNBd20mQogxlDGcOAPrKEFSt8U',
+  },
+};
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
