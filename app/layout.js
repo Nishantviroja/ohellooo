@@ -5,6 +5,7 @@ import siteMetadata from "./data/metadata";
 import integrations from "./data/integrations";
 
 import GoogleAnalytics from "./components/GoogleAnalytics";
+import GoogleTagManager from "./components/GoogleTagManager";
 import MicrosoftClarity from "./components/MicrosoftClarity";
 import OneSignalInit from "./components/OneSignalInit";
 
@@ -39,6 +40,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="bg-white">
       <body className={`${bricolage.variable} ${sen.variable} bg-white antialiased`}>
+        {/* Google Tag Manager - Must load first */}
+        <GoogleTagManager GTM_ID={integrations.GTM_ID} />
+
         {/* Test mode script must run BEFORE AdSense loads */}
         {isTestMode && (
           <Script id="adsense-test-mode" strategy="beforeInteractive">

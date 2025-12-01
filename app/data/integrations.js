@@ -1,5 +1,6 @@
 const integrations = {
   GA_MEASUREMENT_ID: "G-RMDMKFX1EM",
+  GTM_ID: "GTM-NLVC83S6",
   CLARITY_PROJECT_ID: "tyxnewam75",
   ADSENSE_CLIENT_ID: "ca-pub-6543173328208739",
   
