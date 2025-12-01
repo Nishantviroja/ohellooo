@@ -8,6 +8,7 @@ const AdFluid = () => {
   const isTestMode = integrations.ADSENSE_TEST_MODE;
 
   useEffect(() => {
+    if (!integrations.GOOGLE_ADSENSE) return;
     if (isAdPushed.current) return;
 
     const timer = setTimeout(() => {
@@ -28,6 +29,9 @@ const AdFluid = () => {
       isAdPushed.current = false;
     };
   }, []);
+
+  // Check if ads are globally enabled
+  if (!integrations.GOOGLE_ADSENSE) return null;
 
   return (
     <div className="w-full h-full flex justify-center bg-white rounded-xl shadow-md duration-300 hover:shadow-lg">

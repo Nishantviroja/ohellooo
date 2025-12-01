@@ -7,6 +7,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'static.gamezop.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.play.gamezop.com',
+      },
+      {
+        protocol: 'https',
         hostname: '**',
       },
     ],

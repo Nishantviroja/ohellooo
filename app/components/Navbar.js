@@ -29,7 +29,7 @@ export default function Navbar() {
             </div>
             
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden md:flex items-center space-x-8">
               <Link href="/" className="font-sen text-gray-600 hover:text-gray-900 transition-colors">
                 Home
               </Link>
@@ -41,6 +41,20 @@ export default function Navbar() {
               </Link>
               <Link href="/about" className="font-sen text-gray-600 hover:text-gray-900 transition-colors">
                 About
+              </Link>
+
+              {/* Games Button - White BG with Gradient Border */}
+              <Link 
+                href="/play" 
+                className="relative px-4 py-1 bg-white text-sm font-bold rounded-full transition-all duration-300 shadow-md"
+                style={{
+                  background: 'linear-gradient(white, white) padding-box, linear-gradient(to right, #2563eb, #9333ea) border-box',
+                  border: '2px solid transparent'
+                }}
+              >
+                 🎮&nbsp;<span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Play Games
+                </span>
               </Link>
             </nav>
 
@@ -123,6 +137,21 @@ export default function Navbar() {
               onClick={closeMobileMenu}
             >
               About
+            </Link>
+            
+            {/* Games Button - Mobile */}
+            <Link 
+              href="/play"
+              className="block mx-4 mt-4 px-4 py-2 bg-white rounded-full text-center font-bold shadow-lg transition-all duration-300"
+              style={{
+                background: 'linear-gradient(white, white) padding-box, linear-gradient(to right, #2563eb, #9333ea) border-box',
+                border: '2px solid transparent'
+              }}
+              onClick={closeMobileMenu}
+            >
+              🎮&nbsp;<span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Play Games
+              </span>
             </Link>
           </nav>
 

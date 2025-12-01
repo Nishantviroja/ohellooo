@@ -8,6 +8,7 @@ const AdRectangle = () => {
   const isTestMode = integrations.ADSENSE_TEST_MODE;
 
   useEffect(() => {
+    if (!integrations.GOOGLE_ADSENSE) return;
     if (isAdPushed.current) return;
 
     const timer = setTimeout(() => {
@@ -28,6 +29,9 @@ const AdRectangle = () => {
       isAdPushed.current = false;
     };
   }, []);
+
+  // Check if ads are globally enabled
+  if (!integrations.GOOGLE_ADSENSE) return null;
 
   return (
     <div className="overflow-hidden border-2 border-blue-200 rounded-lg  bg-blue-50">

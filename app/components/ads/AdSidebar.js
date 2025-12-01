@@ -8,6 +8,7 @@ const AdSidebar = ({ position = 'left' }) => {
   const isTestMode = integrations.ADSENSE_TEST_MODE;
 
   useEffect(() => {
+    if (!integrations.GOOGLE_ADSENSE) return;
     if (isAdPushed.current) return;
 
     const timer = setTimeout(() => {
@@ -28,6 +29,9 @@ const AdSidebar = ({ position = 'left' }) => {
       isAdPushed.current = false;
     };
   }, []);
+
+  // Check if ads are globally enabled
+  if (!integrations.GOOGLE_ADSENSE) return null;
 
   return (
     <div className="sticky top-20 h-fit">

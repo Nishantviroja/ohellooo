@@ -1,9 +1,12 @@
 const integrations = {
   GA_MEASUREMENT_ID: "G-RMDMKFX1EM",
   CLARITY_PROJECT_ID: "tyxnewam75",
-  
-  ADSENSE_TEST_MODE: false,
   ADSENSE_CLIENT_ID: "ca-pub-6543173328208739",
+  
+  
+  GOOGLE_ADSENSE: false, 
+  ADSENSE_TEST_MODE: false,
+  
   ADSENSE_SLOTS: {
     IN_ARTICLE: "4086921999",      // In-Article ad slot ID
     SIDEBAR: "8516233547",          // Display/Square ad slot ID

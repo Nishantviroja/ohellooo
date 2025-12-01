@@ -5,13 +5,14 @@ import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import GAMEZOP_PARTNER_ID from '../data/gamezop';
+import PlaySchema from './PlaySchema';
 
 export default function PlayPage() {
   const [games, setGames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedCategories, setExpandedCategories] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     // Fetch games from Gamezop API
@@ -75,12 +76,10 @@ export default function PlayPage() {
   const sortedCategories = Object.entries(categoriesData)
     .sort((a, b) => b[1].length - a[1].length);
 
-  const toggleCategory = (category) => {
-    setExpandedCategories(prev => ({
-      ...prev,
-      [category]: !prev[category]
-    }));
-  };
+  // Get games for selected category
+  const categoryGames = selectedCategory === 'all' 
+    ? games 
+    : categoriesData[selectedCategory] || [];
 
   const openGame = (game) => {
     // Open game directly in new tab
@@ -91,6 +90,7 @@ export default function PlayPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <PlaySchema />
       <Navbar />
       
       {/* Hero Section */}
@@ -191,62 +191,95 @@ export default function PlayPage() {
                   </div>
                 </section>
 
-                {/* Category Sections */}
-                {sortedCategories.map(([category, categoryGames]) => {
-                  const isExpanded = expandedCategories[category];
-                  const displayGames = isExpanded ? categoryGames : categoryGames.slice(0, 10);
-                  const hasMore = categoryGames.length > 10;
+                {/* Browse by Category - Desktop/Tablet Only */}
+                <section className="hidden md:block mb-16">
+                  <div className="mb-8">
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Browse by Category</h2>
+                    <p className="text-gray-600">Explore games from different genres</p>
+                  </div>
 
-                  return (
-                    <section key={category} className="mb-16">
-                      <div className="flex items-center justify-between mb-8">
-                        <div>
-                          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                            {category}
-                          </h2>
-                          <p className="text-gray-600">{categoryGames.length} games</p>
-                        </div>
+                  {/* Category Tabs */}
+                  <div className="mb-8 overflow-x-auto">
+                    <div className="flex min-w-max bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 rounded-full px-3 py-2 bg-gray-50">
+                      <button
+                        onClick={() => setSelectedCategory('all')}
+                        className={`flex-1 px-6 py-2 cursor-pointer rounded-full font-semibold transition-all whitespace-nowrap ${
+                          selectedCategory === 'all'
+                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transform scale-105'
+                            : 'bg-transparent text-gray-700 hover:bg-gray-100'
+                        }`}
+                      >
+                        All ({games.length})
+                      </button>
+                      {sortedCategories.map(([category, games]) => (
+                        <button
+                          key={category}
+                          onClick={() => setSelectedCategory(category)}
+                          className={`flex-1 px-6 py-2 cursor-pointer rounded-full font-semibold transition-all duration-500 ease-in-out whitespace-nowrap ${
+                            selectedCategory === category
+                              ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transform scale-105'
+                              : 'bg-transparent text-gray-800 hover:bg-gray-100'
+                          }`}
+                        >
+                          {category} ({games.length})
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Category Games Grid - Compact Design */}
+                  <div className="grid grid-cols-4 lg:grid-cols-6 gap-2 md:gap-3 animate-fadeIn">
+                    {categoryGames.map((game, index) => (
+                      <div
+                        key={game.code || game.id}
+                        style={{ animationDelay: `${index * 0.02}s` }}
+                        className="animate-fadeInUp"
+                      >
+                        <GameCardDesign1 game={game} onClick={() => openGame(game)} />
                       </div>
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-                        {displayGames.map((game) => (
-                          <GameCard key={game.code || game.id} game={game} onClick={() => openGame(game)} />
-                        ))}
-                      </div>
-                      {hasMore && !isExpanded && (
-                        <div className="flex justify-center mt-8">
-                          <button
-                            onClick={() => toggleCategory(category)}
-                            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center gap-2"
-                          >
-                            View More
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                          </button>
-                        </div>
-                      )}
-                    </section>
-                  );
-                })}
+                    ))}
+                  </div>
+
+                  {categoryGames.length === 0 && (
+                    <div className="text-center py-12 text-gray-500">
+                      <p className="text-lg">No games found in this category.</p>
+                    </div>
+                  )}
+                </section>
+
+                {/* All Games - Mobile Only (2 columns) */}
+                <section className="block md:hidden mb-16">
+                  <div className="mb-8">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-2">🎯 All Games</h2>
+                    <p className="text-gray-600">{games.length} games available</p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {games.map((game) => (
+                      <GameCardDesign1 key={game.code || game.id} game={game} onClick={() => openGame(game)} />
+                    ))}
+                  </div>
+                </section>
               </>
             )}
 
-            {/* All Games / Search Results */}
-            <section className="mb-16">
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                    {searchQuery ? '🔍 Search Results' : '🎯 All Games'}
-                  </h2>
-                  <p className="text-gray-600">{filteredGames.length} games available</p>
+            {/* Search Results Only (when searching) */}
+            {searchQuery && (
+              <section className="mb-16">
+                <div className="flex items-center justify-between mb-8">
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+                      🔍 Search Results
+                    </h2>
+                    <p className="text-gray-600">{filteredGames.length} games found</p>
+                  </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 md:gap-3">
-                {filteredGames.map((game) => (
-                  <GameCard key={game.code || game.id} game={game} onClick={() => openGame(game)} compact />
-                ))}
-              </div>
-            </section>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-3">
+                  {filteredGames.map((game) => (
+                    <GameCardDesign1 key={game.code || game.id} game={game} onClick={() => openGame(game)} />
+                  ))}
+                </div>
+              </section>
+            )}
           </>
         )}
 
@@ -282,7 +315,7 @@ export default function PlayPage() {
   );
 }
 
-// Game Card Component
+// Game Card Component (Original - for Featured/Categories)
 function GameCard({ game, onClick, featured = false, isNew = false, compact = false }) {
   return (
     <div
@@ -333,3 +366,37 @@ function GameCard({ game, onClick, featured = false, isNew = false, compact = fa
     </div>
   );
 }
+
+// Design 1: Minimal with Bottom Fade (Always Visible)
+function GameCardDesign1({ game, onClick }) {
+  return (
+    <div 
+      className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl border-2 border-transparent hover:border-blue-600"
+      onClick={onClick}
+    >
+      <Image
+        src={game.thumbnail || game.assets?.cover || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%234F46E5"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="60" fill="white"%3E🎮%3C/text%3E%3C/svg%3E'}
+        alt={game.name?.en || 'Game'}
+        width={200}
+        height={200}
+        className="w-full h-full object-cover"
+        unoptimized
+      />
+      {/* Gradient fade and name - always visible */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 p-2">
+          <p className="text-white font-semibold truncate">{game.name?.en}</p>
+        </div>
+      </div>
+      {/* Play button - only on hover */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+          <svg className="w-6 h-6 text-blue-600 ml-1" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+}
+

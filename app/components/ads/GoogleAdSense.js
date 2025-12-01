@@ -1,8 +1,12 @@
 'use client';
 
 import Script from 'next/script';
+import integrations from '../../data/integrations';
 
 const GoogleAdSense = ({ AD_CLIENT_ID }) => {
+  // Check if ads are globally enabled
+  if (!integrations.GOOGLE_ADSENSE) return null;
+
   return (
     <>
       <Script

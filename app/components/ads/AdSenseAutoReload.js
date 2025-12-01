@@ -2,12 +2,15 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import integrations from '../../data/integrations';
 
 export default function AdSenseAutoReload() {
   const pathname = usePathname();
   const isInitialMount = useRef(true);
 
   useEffect(() => {
+    if (!integrations.GOOGLE_ADSENSE) return;
+    
     if (isInitialMount.current) {
       isInitialMount.current = false;
       return;
