@@ -2,13 +2,55 @@
 
 const siteMetadata = {
   home: {
-    title: "Fizoval | Discover 5000+ Top AI Tools for Every Use Case",
+    title: "Fizoval | Discover 5000+ Top AI Tools for Every Use Case - #1 AI Directory",
     description:
-      "Find the best AI tools in one place. Fizoval features over 5000+ handpicked AI tools for creators, developers, marketers, and businesses to stay ahead in the AI revolution.",
-    keywords: "AI Tools Directory, Best AI Tools 2025, Free AI Tools, Fizoval, Top AI Software",
-openGraph: {
-      title: "Fizoval | Explore the World's Largest AI Tools Directory",
-      description: "Explore over 5000+ AI tools categorized for developers, marketers, entrepreneurs, and tech innovators. Stay updated with the latest AI trends.",
+      "🚀 Find the best AI tools in one place! Browse 5000+ curated AI tools across 120+ categories. Free & Paid options for creators, developers, marketers & businesses. Updated daily!",
+    keywords: [
+      // Primary Keywords
+      "AI tools directory",
+      "best AI tools 2025",
+      "free AI tools",
+      "AI software directory",
+      "artificial intelligence tools",
+      
+      // Tool Categories
+      "AI productivity tools",
+      "AI marketing tools",
+      "AI writing tools",
+      "AI image generator",
+      "AI video tools",
+      "AI coding tools",
+      "AI design tools",
+      "AI chatbot tools",
+      
+      // Use Cases
+      "AI for business",
+      "AI for developers",
+      "AI for content creators",
+      "AI for marketers",
+      "AI automation tools",
+      
+      // Long-tail
+      "compare AI tools",
+      "AI tools reviews",
+      "latest AI software",
+      "generative AI tools",
+      "ChatGPT alternatives",
+      "Midjourney alternatives",
+      
+      // Branded
+      "Fizoval",
+      "Fizoval AI directory"
+    ].join(", "),
+    
+    authors: [{ name: "Fizoval" }],
+    creator: "Fizoval",
+    publisher: "Fizoval",
+    category: "Technology",
+    
+    openGraph: {
+      title: "Fizoval | Explore 5000+ AI Tools - World's Largest AI Directory",
+      description: "Discover & compare 5000+ AI tools across 120+ categories. From ChatGPT to Midjourney alternatives. Find the perfect AI tool for your needs. Updated daily!",
       url: "https://fizoval.com",
       siteName: "Fizoval",
       images: [
@@ -16,8 +58,8 @@ openGraph: {
           url: "https://fizoval.com/FeaturingIMG.png",
           width: 1200,
           height: 630,
-          alt: "Fizoval AI Tools Directory - 5000+ Tools",
-
+          alt: "Fizoval - World's Largest AI Tools Directory with 5000+ Tools",
+          type: "image/png",
         },
       ],
       locale: "en_US",
@@ -25,9 +67,42 @@ openGraph: {
     },
     twitter: {
       card: "summary_large_image",
-      title: "Fizoval | 5000+ Best AI Tools Categorized by Industry",
-      description: "Find trending AI tools for marketing, coding, design, automation, and more.",
-      images: ["https://fizoval.com/FeaturingIMG.png"],
+      site: "@fizoval",
+      creator: "@fizoval",
+      title: "Fizoval | 5000+ Best AI Tools Categorized & Reviewed",
+      description: "Find trending AI tools for marketing, coding, design, automation & more. Compare features, pricing & alternatives. Your ultimate AI tools resource.",
+      images: {
+        url: "https://fizoval.com/FeaturingIMG.png",
+        alt: "Fizoval AI Tools Directory",
+      },
+    },
+    
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    
+    alternates: {
+      canonical: 'https://fizoval.com',
+      languages: {
+        'en-US': 'https://fizoval.com',
+      },
+    },
+    
+    other: {
+      'theme-color': '#2563eb',
+      'mobile-web-app-capable': 'yes',
+      'apple-mobile-web-app-capable': 'yes',
+      'apple-mobile-web-app-status-bar-style': 'default',
+      'apple-mobile-web-app-title': 'Fizoval',
+      'format-detection': 'telephone=no',
     },
   },
   aiTools: {
