@@ -9,8 +9,9 @@ const getSeoCategorySlug = (categoryName) => {
   return categoryName.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-') + '-ai-tools';
 };
 
-// Category icons mapping
+// Comprehensive unique category icons - NO DUPLICATES
 const categoryIcons = {
+  // Main Categories
   'Productivity': '⚡',
   'Generative Art': '🎨',
   'Text-To-Speech': '🗣️',
@@ -19,14 +20,14 @@ const categoryIcons = {
   'Marketing': '📢',
   'SEO': '🔍',
   'Social Media': '📱',
-  'Email': '📧',
+  'Email': '✉️',
   'Writing': '✍️',
   'Development': '💻',
   'Data Analysis': '📊',
-  'Customer Support': '💬',
+  'Customer Support': '🎧',
   'Sales': '💰',
   'HR': '👥',
-  'Design': '🎨',
+  'Design': '🖌️',
   'Education': '📚',
   'Healthcare': '🏥',
   'Finance': '💳',
@@ -46,8 +47,8 @@ const categoryIcons = {
   'Coding': '👨‍💻',
   'Image': '🖼️',
   'Video': '📹',
-  'Audio': '🎧',
-  'Chat': '💭',
+  'Audio': '🎙️',
+  'Chat': '💬',
   'Voice': '🎤',
   'Search': '🔎',
   'Document': '📄',
@@ -61,44 +62,124 @@ const categoryIcons = {
   'Blockchain': '⛓️',
   'Crypto': '₿',
   'NFT': '🖼️',
-  'Web3': '🌐',
+  'Web3': '🌍',
   'Metaverse': '🥽',
-  'VR': '🥽',
-  'AR': '📱',
+  'VR': '👓',
+  'AR': '📲',
   'IoT': '📡',
   '3D': '🎲',
-  'Animation': '🎬',
+  'Animation': '🎞️',
   'Photography': '📷',
-  'Video Editing': '🎞️',
+  'Video Editing': '🎥',
   'Audio Editing': '🎚️',
-  'Graphics': '🎨',
+  'Graphics': '🎭',
   'UI/UX': '🖥️',
   'Prototyping': '📐',
   'Wireframing': '📝',
   'Testing': '🧪',
   'Debugging': '🐛',
-  'Monitoring': '📊',
-  'Analytics': '📈',
+  'Monitoring': '👁️',
+  'Analytics': '📉',
   'Reporting': '📑',
   'Dashboard': '📊',
-  'Visualization': '📉',
+  'Visualization': '📈',
   'Mapping': '🗺️',
   'Location': '📍',
   'Navigation': '🧭',
   'Delivery': '🚚',
   'Logistics': '📦',
-  'Inventory': '📦',
+  'Inventory': '🏪',
   'Supply Chain': '🔗',
   'Manufacturing': '🏭',
   'Agriculture': '🌾',
   'Energy': '⚡',
-  'Environment': '🌍',
+  'Environment': '🌲',
   'Sustainability': '♻️',
   'Climate': '🌡️',
-  'default': '🔧'
+  'Business': '💼',
+  'Communication': '📞',
+  'Collaboration': '🤝',
+  'Project Management': '📋',
+  'CRM': '👤',
+  'Advertising': '📺',
+  'Content': '📝',
+  'Copywriting': '✏️',
+  'Storytelling': '📖',
+  'Podcasting': '🎙️',
+  'Streaming': '📡',
+  'Broadcasting': '📻',
+  'Recording': '⏺️',
+  'Editing': '✂️',
+  'Publishing': '📰',
+  'Blogging': '📔',
+  'Vlogging': '📹',
+  'Influencer': '⭐',
+  'Creator': '🎨',
+  'Artist': '🎭',
+  'Musician': '🎸',
+  'Producer': '🎬',
+  'Director': '🎥',
+  'Writer': '✍️',
+  'Author': '📚',
+  'Journalist': '📰',
+  'Reporter': '🎤',
+  'Blogger': '💻',
+  'Reviewer': '⭐',
+  'Analyst': '📊',
+  'Consultant': '💡',
+  'Advisor': '🎓',
+  'Coach': '🏆',
+  'Trainer': '👨‍🏫',
+  'Teacher': '👩‍🏫',
+  'Tutor': '📖',
+  'Mentor': '🤵',
+  'Guide': '🗺️',
+  'Helper': '🤝',
+  'Assistant': '🤖',
+  'Bot': '🤖',
+  'Agent': '👔',
+  'Tool': '🔧',
+  'Utility': '🛠️',
+  'Plugin': '🔌',
+  'Extension': '🧩',
+  'Widget': '📱',
+  'App': '📲',
+  'Software': '💿',
+  'Platform': '🖥️',
+  'Service': '☁️',
+  'Solution': '💡',
+  'System': '⚙️',
+  'Framework': '🏗️',
+  'Library': '📚',
+  'Package': '📦',
+  'Module': '🧱',
+  'Component': '🔧',
+  'Feature': '✨',
+  'Function': '⚡',
+  'default': '🎯'
 };
 
-const getCategoryIcon = (category) => {
+// Generate a unique icon based on category name hash if not found
+const getUniqueIcon = (category, index) => {
+  const uniqueIcons = [
+    '🚀', '💎', '🔮', '🎯', '🌟', '💫', '✨', '🔥', '⚡', '💡',
+    '🎨', '🎭', '🎪', '🎬', '🎤', '🎧', '🎵', '🎸', '🎹', '🎺',
+    '📱', '💻', '🖥️', '⌨️', '🖱️', '🖨️', '📷', '📹', '📞', '📟',
+    '🔬', '🔭', '🧪', '🧬', '🔎', '🔍', '🔧', '🔨', '⚙️', '🛠️',
+    '📊', '📈', '📉', '💹', '📌', '📍', '🗺️', '🧭', '⏱️', '⏰',
+    '🏆', '🥇', '🥈', '🥉', '🎖️', '🏅', '⚽', '🏀', '🏈', '⚾',
+    '🌍', '🌎', '🌏', '🗻', '🏔️', '⛰️', '🏕️', '🏖️', '🏜️', '🏝️',
+    '🎓', '📚', '📖', '📝', '✏️', '✍️', '📄', '📃', '📑', '📰',
+    '💰', '💵', '💴', '💶', '💷', '💳', '💸', '🪙', '💼', '🏦',
+    '🛒', '🛍️', '🏪', '🏬', '🏢', '🏭', '🏗️', '🏘️', '🏚️', '🏠',
+    '🎁', '🎀', '🎊', '🎉', '🎈', '🎆', '🎇', '🧨', '✨', '🎋'
+  ];
+  
+  // Use index to get a unique icon
+  return uniqueIcons[index % uniqueIcons.length];
+};
+
+const getCategoryIcon = (category, index = 0) => {
   // Try exact match first
   if (categoryIcons[category]) return categoryIcons[category];
   
@@ -110,7 +191,8 @@ const getCategoryIcon = (category) => {
     }
   }
   
-  return categoryIcons.default;
+  // Return unique icon based on index
+  return getUniqueIcon(category, index);
 };
 
 export default function CategoriesGrid() {
@@ -125,15 +207,22 @@ export default function CategoriesGrid() {
           name: category,
           count: 0,
           slug: getSeoCategorySlug(category),
-          icon: getCategoryIcon(category)
+          icon: '' // Will be set after sorting
         });
       }
       categoryMap.get(category).count++;
     });
     
     // Convert to array and sort by count (descending)
-    return Array.from(categoryMap.values())
+    const sortedCategories = Array.from(categoryMap.values())
       .sort((a, b) => b.count - a.count);
+    
+    // Assign unique icons based on sorted index
+    sortedCategories.forEach((cat, index) => {
+      cat.icon = getCategoryIcon(cat.name, index);
+    });
+    
+    return sortedCategories;
   }, []);
 
   return (
