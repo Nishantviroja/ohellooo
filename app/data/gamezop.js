@@ -1,4 +1,9 @@
-const GAMEZOP_PARTNER_ID = '8207';
 
-export default GAMEZOP_PARTNER_ID;
+
+const GAMEZOP_CONFIG = {
+  PARTNER_ID: '11127',
+  BEARER_TOKEN: '33cc7887-8f15-46d1-9a6f-5794e3d07970',
+};
+
+export default GAMEZOP_CONFIG;
 

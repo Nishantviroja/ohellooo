@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import GAMEZOP_PARTNER_ID from '../data/gamezop';
 import PlaySchema from './PlaySchema';
 
 export default function PlayPage() {
@@ -15,30 +14,31 @@ export default function PlayPage() {
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
-    // Fetch games from Gamezop API
+    // Fetch games from our API route (which calls Gamezop API)
     const fetchGames = async () => {
       try {
-        const response = await fetch(
-          `https://pub.gamezop.com/v3/games?id=${GAMEZOP_PARTNER_ID}`
-        );
+        setIsLoading(true);
+        const response = await fetch('/api/gamezop?lang=en');
         
         if (!response.ok) {
-          throw new Error('Failed to fetch games');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to fetch games');
         }
         
         const data = await response.json();
         console.log('Games loaded:', data);
         
-        if (data.games && Array.isArray(data.games)) {
-          setGames(data.games);
-        } else if (Array.isArray(data)) {
-          setGames(data);
+        if (data.status === 'success' && data.data?.games) {
+          setGames(data.data.games);
+        } else {
+          throw new Error('Invalid response format');
         }
         
         setIsLoading(false);
       } catch (err) {
         console.error('Error fetching games:', err);
-        setError('Failed to load games. Please try again later.');
+        setError(err.message || 'Failed to load games. Please try again later.');
+        setGames([]); // Ensure games is always an array even on error
         setIsLoading(false);
       }
     };
@@ -46,30 +46,31 @@ export default function PlayPage() {
     fetchGames();
   }, []);
 
+  // Ensure games is always an array
+  const gamesArray = Array.isArray(games) ? games : [];
+
   // Filter games by search query
-  const filteredGames = games.filter(game => {
+  const filteredGames = gamesArray.filter(game => {
     if (!searchQuery) return true;
     
-    const gameName = game.name?.en?.toLowerCase() || '';
-    const gameDesc = game.description?.en?.toLowerCase() || '';
+    const gameName = game.name?.toLowerCase() || '';
+    const gameDesc = game.description?.toLowerCase() || '';
     const search = searchQuery.toLowerCase();
     
     return gameName.includes(search) || gameDesc.includes(search);
   });
 
   // Get featured/popular games (first 6 games)
-  const featuredGames = games.slice(0, 6);
+  const featuredGames = gamesArray.slice(0, 6);
 
   // Get unique categories and group games by category
   const categoriesData = {};
-  games.forEach(game => {
-    const cats = game.categories?.en || [];
-    cats.forEach(category => {
-      if (!categoriesData[category]) {
-        categoriesData[category] = [];
-      }
-      categoriesData[category].push(game);
-    });
+  gamesArray.forEach(game => {
+    const category = game.category?.name || 'Other';
+    if (!categoriesData[category]) {
+      categoriesData[category] = [];
+    }
+    categoriesData[category].push(game);
   });
 
   // Sort categories by number of games
@@ -78,7 +79,7 @@ export default function PlayPage() {
 
   // Get games for selected category
   const categoryGames = selectedCategory === 'all' 
-    ? games 
+    ? gamesArray 
     : categoriesData[selectedCategory] || [];
 
   const openGame = (game) => {
@@ -159,12 +160,30 @@ export default function PlayPage() {
 
         {error && (
           <div className="flex items-center justify-center py-20">
-            <div className="text-center p-8 bg-red-50 rounded-3xl max-w-md">
+            <div className="text-center p-8 bg-red-50 rounded-3xl max-w-2xl">
               <div className="text-6xl mb-6">⚠️</div>
-              <p className="text-red-600 font-bold text-xl mb-6">{error}</p>
+              <p className="text-red-600 font-bold text-xl mb-4">{error}</p>
+              
+              {error.includes('Bearer Token') && (
+                <div className="mt-6 p-6 bg-white rounded-2xl text-left">
+                  <h3 className="font-bold text-lg mb-4 text-gray-900">How to Fix:</h3>
+                  <ol className="list-decimal list-inside space-y-2 text-gray-700">
+                    <li>Login to <a href="https://business.gamezop.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Gamezop Business Dashboard</a></li>
+                    <li>Go to: <strong>Settings & Admin → API Tokens</strong></li>
+                    <li>Copy your Bearer token</li>
+                    <li>Open <code className="bg-gray-100 px-2 py-1 rounded">app/data/gamezop.js</code></li>
+                    <li>Update <code className="bg-gray-100 px-2 py-1 rounded text-sm">BEARER_TOKEN</code> with your token</li>
+                    <li>Restart your development server</li>
+                  </ol>
+                  <p className="mt-4 text-sm text-gray-600">
+                    <strong>Note:</strong> If you don&apos;t see &quot;API Tokens&quot; section, contact your Gamezop Account Manager to enable it.
+                  </p>
+                </div>
+              )}
+              
               <button
                 onClick={() => window.location.reload()}
-                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                className="mt-6 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
               >
                 Retry
               </button>
@@ -172,7 +191,7 @@ export default function PlayPage() {
           </div>
         )}
 
-        {!isLoading && !error && games.length > 0 && (
+        {!isLoading && !error && gamesArray.length > 0 && (
           <>
             {!searchQuery && (
               <>
@@ -186,7 +205,7 @@ export default function PlayPage() {
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
                     {featuredGames.map((game) => (
-                      <GameCard key={game.code || game.id} game={game} onClick={() => openGame(game)} featured />
+                      <GameCard key={game.code} game={game} onClick={() => openGame(game)} featured />
                     ))}
                   </div>
                 </section>
@@ -207,11 +226,11 @@ export default function PlayPage() {
                           selectedCategory === 'all'
                             ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transform scale-105'
                             : 'bg-transparent text-gray-700 hover:bg-gray-100'
-                        }`}
-                      >
-                        All ({games.length})
-                      </button>
-                      {sortedCategories.map(([category, games]) => (
+                    }`}
+                  >
+                    All ({gamesArray.length})
+                  </button>
+                  {sortedCategories.map(([category, categoryGamesList]) => (
                         <button
                           key={category}
                           onClick={() => setSelectedCategory(category)}
@@ -221,7 +240,7 @@ export default function PlayPage() {
                               : 'bg-transparent text-gray-800 hover:bg-gray-100'
                           }`}
                         >
-                          {category} ({games.length})
+                          {category} ({categoryGamesList.length})
                         </button>
                       ))}
                     </div>
@@ -231,7 +250,7 @@ export default function PlayPage() {
                   <div className="grid grid-cols-4 lg:grid-cols-6 gap-2 md:gap-3 animate-fadeIn">
                     {categoryGames.map((game, index) => (
                       <div
-                        key={game.code || game.id}
+                        key={game.code}
                         style={{ animationDelay: `${index * 0.02}s` }}
                         className="animate-fadeInUp"
                       >
@@ -248,14 +267,14 @@ export default function PlayPage() {
                 </section>
 
                 {/* All Games - Mobile Only (2 columns) */}
-                <section className="block md:hidden mb-16">
-                  <div className="mb-8">
-                    <h2 className="text-3xl font-bold text-gray-900 mb-2">🎯 All Games</h2>
-                    <p className="text-gray-600">{games.length} games available</p>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {games.map((game) => (
-                      <GameCardDesign1 key={game.code || game.id} game={game} onClick={() => openGame(game)} />
+            <section className="block md:hidden mb-16">
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">🎯 All Games</h2>
+                <p className="text-gray-600">{gamesArray.length} games available</p>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {gamesArray.map((game) => (
+                      <GameCardDesign1 key={game.code} game={game} onClick={() => openGame(game)} />
                     ))}
                   </div>
                 </section>
@@ -273,17 +292,30 @@ export default function PlayPage() {
                     <p className="text-gray-600">{filteredGames.length} games found</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-3">
-                  {filteredGames.map((game) => (
-                    <GameCardDesign1 key={game.code || game.id} game={game} onClick={() => openGame(game)} />
-                  ))}
-                </div>
+                {filteredGames.length > 0 ? (
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-3">
+                    {filteredGames.map((game) => (
+                      <GameCardDesign1 key={game.code} game={game} onClick={() => openGame(game)} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12">
+                    <div className="text-6xl mb-4">🔍</div>
+                    <p className="text-gray-600 text-lg">No games found matching your search.</p>
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors"
+                    >
+                      Clear Search
+                    </button>
+                  </div>
+                )}
               </section>
             )}
           </>
         )}
 
-        {!isLoading && !error && games.length === 0 && (
+        {!isLoading && !error && gamesArray.length === 0 && (
           <div className="text-center py-20">
             <div className="text-6xl mb-6">🎮</div>
             <p className="text-gray-600 font-semibold text-xl">No games available at the moment.</p>
@@ -315,8 +347,8 @@ export default function PlayPage() {
   );
 }
 
-// Game Card Component (Original - for Featured/Categories)
-function GameCard({ game, onClick, featured = false, isNew = false, compact = false }) {
+// Game Card Component (Original - for Featured)
+function GameCard({ game, onClick, featured = false }) {
   return (
     <div
       className={`group relative bg-white rounded-2xl shadow-lg border-2 border-gray-100 overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:border-blue-300 ${
@@ -325,12 +357,10 @@ function GameCard({ game, onClick, featured = false, isNew = false, compact = fa
       onClick={onClick}
     >
       {/* Badge */}
-      {(featured || isNew) && (
+      {featured && (
         <div className="absolute top-2 right-2 z-10">
-          <span className={`px-3 py-1 rounded-full text-xs font-bold text-white shadow-lg ${
-            featured ? 'bg-gradient-to-r from-orange-500 to-red-500' : 'bg-gradient-to-r from-green-500 to-emerald-500'
-          }`}>
-            {featured ? '🔥 HOT' : '✨ NEW'}
+          <span className="px-3 py-1 rounded-full text-xs font-bold text-white shadow-lg bg-gradient-to-r from-orange-500 to-red-500">
+            🔥 HOT
           </span>
         </div>
       )}
@@ -338,8 +368,8 @@ function GameCard({ game, onClick, featured = false, isNew = false, compact = fa
       {/* Thumbnail */}
       <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100">
         <Image
-          src={game.thumbnail || game.assets?.cover || game.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%234F46E5"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="60" fill="white"%3E🎮%3C/text%3E%3C/svg%3E'}
-          alt={game.name?.en || game.title || 'Game thumbnail'}
+          src={game.images?.square || game.images?.cover || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%234F46E5"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="60" fill="white"%3E🎮%3C/text%3E%3C/svg%3E'}
+          alt={game.name || 'Game thumbnail'}
           width={400}
           height={400}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
@@ -356,13 +386,11 @@ function GameCard({ game, onClick, featured = false, isNew = false, compact = fa
       </div>
 
       {/* Game Info */}
-      {!compact && (
-        <div className="p-4">
-          <h3 className="font-bold text-sm md:text-base text-gray-900 truncate group-hover:text-blue-600 transition-colors">
-            {game.name?.en || game.title || 'Unknown Game'}
-          </h3>
-        </div>
-      )}
+      <div className="p-4">
+        <h3 className="font-bold text-sm md:text-base text-gray-900 truncate group-hover:text-blue-600 transition-colors">
+          {game.name || 'Unknown Game'}
+        </h3>
+      </div>
     </div>
   );
 }
@@ -375,8 +403,8 @@ function GameCardDesign1({ game, onClick }) {
       onClick={onClick}
     >
       <Image
-        src={game.thumbnail || game.assets?.cover || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%234F46E5"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="60" fill="white"%3E🎮%3C/text%3E%3C/svg%3E'}
-        alt={game.name?.en || 'Game'}
+        src={game.images?.square || game.images?.cover || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%234F46E5"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="60" fill="white"%3E🎮%3C/text%3E%3C/svg%3E'}
+        alt={game.name || 'Game'}
         width={200}
         height={200}
         className="w-full h-full object-cover"
@@ -385,7 +413,7 @@ function GameCardDesign1({ game, onClick }) {
       {/* Gradient fade and name - always visible */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent">
         <div className="absolute bottom-0 left-0 right-0 p-2">
-          <p className="text-white font-semibold truncate">{game.name?.en}</p>
+          <p className="text-white font-semibold truncate">{game.name}</p>
         </div>
       </div>
       {/* Play button - only on hover */}
@@ -399,4 +427,3 @@ function GameCardDesign1({ game, onClick }) {
     </div>
   );
 }
-
