@@ -15,7 +15,7 @@ export default function HomeSchema() {
         "width": 200,
         "height": 200
       },
-      "description": "Fizoval is the world's largest AI tools directory featuring over 5000+ curated AI tools across 120+ categories for creators, developers, marketers, and businesses.",
+      "description": "Fizoval is your trusted AI innovation partner, curating 5000+ best-in-class AI tools across 120+ categories. We empower creators, developers, marketers, and businesses to unlock their potential and shape the future with AI.",
       "sameAs": [
         "https://twitter.com/fizoval",
         "https://www.linkedin.com/company/fizoval"
@@ -33,8 +33,8 @@ export default function HomeSchema() {
       "@type": "WebSite",
       "@id": "https://fizoval.com/#website",
       "url": "https://fizoval.com",
-      "name": "Fizoval - AI Tools Directory",
-      "description": "Find the best AI tools in one place. Browse 5000+ handpicked AI tools for every use case.",
+      "name": "Fizoval - Your AI Innovation Partner",
+      "description": "Empowering your AI journey with 5000+ curated tools. Discover, compare, and leverage the best AI solutions to transform your work and unlock limitless possibilities.",
       "publisher": {
         "@id": "https://fizoval.com/#organization"
       },
@@ -54,8 +54,8 @@ export default function HomeSchema() {
       "@type": "WebPage",
       "@id": "https://fizoval.com/#webpage",
       "url": "https://fizoval.com",
-      "name": "Fizoval | Discover 5000+ Top AI Tools for Every Use Case",
-      "description": "Find the best AI tools in one place. Fizoval features over 5000+ handpicked AI tools for creators, developers, marketers, and businesses to stay ahead in the AI revolution.",
+      "name": "Fizoval | Empowering Innovation with 5000+ Curated AI Tools",
+      "description": "Your trusted partner in AI discovery. Explore 5000+ handpicked AI tools to transform your work, boost creativity, and unlock new possibilities. Join 100K+ innovators shaping the future with AI.",
       "isPartOf": {
         "@id": "https://fizoval.com/#website"
       },

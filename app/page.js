@@ -4,7 +4,6 @@ import Hero from './components/Hero';
 import Footer from './components/Footer';
 import FeaturedToolsSection from './components/FeaturedToolsSection';
 import CategoriesGrid from './components/CategoriesGrid';
-import StatsSection from './components/StatsSection';
 import HomeToolsSection from './components/HomeToolsSection';
 import HomeBlogSection from './components/HomeBlogSection';
 import HomeSchema from './components/HomeSchema';
@@ -18,10 +17,9 @@ export default function Home() {
       <HomeSchema />
       <Navbar />
       <Hero />
-      <StatsSection />
       <FeaturedToolsSection />
       <CategoriesGrid />
-      <HomeToolsSection />
+      {/* <HomeToolsSection /> */}
       <HomeBlogSection />
       <Footer />
     </div>

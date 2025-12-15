@@ -259,7 +259,7 @@ export default function CategoriesGrid() {
               {/* Tools Count */}
               <div className="flex items-center text-sm text-gray-600">
                 <span className="font-semibold text-blue-600">{category.count}</span>
-                <span className="ml-1">tools</span>
+                <span className="ml-1">AI tools</span>
               </div>
               
               {/* Hover Arrow */}
