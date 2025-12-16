@@ -238,35 +238,40 @@ export default function CategoriesGrid() {
           </p>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        {/* Categories Grid - Horizontal Card Design */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {categoriesData.map((category) => (
             <Link
               key={category.slug}
               href={`/${category.slug}`}
-              className="group relative bg-gradient-to-br from-gray-50 to-white p-6 rounded-2xl border-2 border-gray-100 hover:border-blue-500 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="bg-gradient-to-br from-white to-blue-50 group relative bg-white px-3 py-3 rounded-xl border-2 border-blue-50 hover:border-blue-100 hover:shadow-md transition-all duration-300"
             >
-              {/* Icon */}
-              <div className="text-4xl mb-3 transform group-hover:scale-110 transition-transform duration-300">
-                {category.icon}
-              </div>
-              
-              {/* Category Name */}
-              <h3 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                {category.name}
-              </h3>
-              
-              {/* Tools Count */}
-              <div className="flex items-center text-sm text-gray-600">
-                <span className="font-semibold text-blue-600">{category.count}</span>
-                <span className="ml-1">AI tools</span>
-              </div>
-              
-              {/* Hover Arrow */}
-              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
+              <div className="flex items-center gap-4">
+                {/* Icon - Left Side */}
+                <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center  rounded-xl text-3xl group-hover:scale-110 transition-transform duration-300">
+                  {category.icon}
+                </div>
+                
+                {/* Text Content - Right Side */}
+                <div className="flex-1 min-w-0">
+                  {/* Category Name */}
+                  <h3 className="font-bold text-gray-900 mb-1 truncate group-hover:text-blue-600 transition-colors">
+                    {category.name}
+                  </h3>
+                  
+                  {/* Tools Count */}
+                  <div className="flex items-center text-sm text-gray-600">
+                    <span className="font-semibold text-blue-600">{category.count}</span>
+                    <span className="ml-1">AI tools</span>
+                  </div>
+                </div>
+
+                {/* Hover Arrow - Far Right */}
+                <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
             </Link>
           ))}

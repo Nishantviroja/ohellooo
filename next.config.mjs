@@ -4,6 +4,7 @@ const nextConfig = {
   trailingSlash: true,
   
   images: { 
+    domains: ['i.pravatar.cc'],
     remotePatterns: [
       {
         protocol: 'https',
