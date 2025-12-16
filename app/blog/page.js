@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BlogCard from '../components/BlogCard';
 import AdFluid from '../components/ads/AdFluid';
+import BlogSchema from '../components/BlogSchema';
 
 export function generateMetadata() {
   const base = siteMetadata.blog || {};
@@ -40,6 +41,7 @@ export default async function BlogPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
+      <BlogSchema />
       <Navbar />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-indigo-100 to-purple-50 py-8 px-4 md:px-8 flex items-center justify-center">

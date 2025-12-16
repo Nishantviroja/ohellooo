@@ -135,6 +135,36 @@ openGraph: {
     description:
       "Stay updated with AI industry trends, expert tool reviews, guides, and curated insights into the ever-evolving world of artificial intelligence.",
     keywords: "AI blog, AI tools review, latest AI news 2025, Fizoval blog, AI software reviews",
+    authors: [{ name: "Fizoval" }],
+    creator: "Fizoval",
+    publisher: "Fizoval",
+    openGraph: {
+      title: "Fizoval Blog | AI News, Tool Reviews & Latest Trends",
+      description: "Explore expert articles, reviews, and insights about AI tools and technology trends. Stay ahead in the AI revolution.",
+      url: "https://fizoval.com/blog",
+      siteName: "Fizoval",
+      images: [
+        {
+          url: "https://fizoval.com/FeaturingIMG.png",
+          width: 1200,
+          height: 630,
+          alt: "Fizoval Blog - AI Tools News and Reviews",
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@fizoval",
+      creator: "@fizoval",
+      title: "Fizoval Blog | AI News & Tool Reviews",
+      description: "Expert AI tool reviews, guides, and industry insights.",
+      images: {
+        url: "https://fizoval.com/FeaturingIMG.png",
+        alt: "Fizoval Blog",
+      },
+    },
   },
   about: {
     title: "About Fizoval | World's Largest AI Tools Hub",
@@ -168,18 +198,57 @@ openGraph: {
     description:
       "Read the terms and conditions governing the use of Fizoval, the best AI tools directory.",
     keywords: "Terms and conditions, Fizoval terms, Fizoval privacy policy",
+    openGraph: {
+      title: "Terms and Conditions | Fizoval",
+      description: "Read the terms and conditions governing the use of Fizoval.",
+      url: "https://fizoval.com/terms-and-conditions",
+      siteName: "Fizoval",
+      images: [{ url: "https://fizoval.com/FeaturingIMG.png", width: 1200, height: 630 }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: "Terms and Conditions | Fizoval",
+      description: "Terms governing the use of Fizoval.",
+    },
   },
   privacy: {
     title: "Privacy Policy | Fizoval",
     description:
       "Understand how Fizoval protects your privacy and handles your data.",
     keywords: "Privacy policy, data protection, Fizoval privacy policy",
+    openGraph: {
+      title: "Privacy Policy | Fizoval",
+      description: "Learn how Fizoval protects your privacy and handles your data.",
+      url: "https://fizoval.com/privacy-policy",
+      siteName: "Fizoval",
+      images: [{ url: "https://fizoval.com/FeaturingIMG.png", width: 1200, height: 630 }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: "Privacy Policy | Fizoval",
+      description: "Learn how we protect your privacy.",
+    },
   },
   affiliate: {
     title: "Affiliate Disclosure | Fizoval",
     description:
-      "Learn about Fizoval’s affiliate relationships and disclosures.",
+      "Learn about Fizoval's affiliate relationships and disclosures.",
     keywords: "Affiliate disclosure, affiliate relationships, Fizoval affiliate disclosure",
+    openGraph: {
+      title: "Affiliate Disclosure | Fizoval",
+      description: "Learn about Fizoval's affiliate relationships and how we earn commissions.",
+      url: "https://fizoval.com/affiliate-disclosure",
+      siteName: "Fizoval",
+      images: [{ url: "https://fizoval.com/FeaturingIMG.png", width: 1200, height: 630 }],
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: "Affiliate Disclosure | Fizoval",
+      description: "Our affiliate relationships and disclosures.",
+    },
   },
 };
 

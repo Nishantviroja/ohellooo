@@ -12,8 +12,7 @@ import OneSignalInit from "./components/OneSignalInit";
 import CleanAdsOnRouteChange from "./components/ads/CleanAdsOnRouteChange";
 import AdSenseAutoReload from "./components/ads/AdSenseAutoReload";
 import GoogleAdSense from "./components/ads/GoogleAdSense";
-
-
+import PlayPromoModal from "./components/PlayPromoModal";
 
 import Script from "next/script";
 
@@ -67,6 +66,9 @@ export default function RootLayout({ children }) {
 
         {/* Page Content */}
         {children}
+        
+        {/* Play Games Promotional Modal - Shows once per session on first page visit */}
+        <PlayPromoModal />
       </body>
     </html>
   );

@@ -2,6 +2,7 @@ import { fetchBlogPosts } from '../../data/blogPosts';
 import BlogPost from './blogPost';
 import { notFound } from 'next/navigation';
 import { getAuthorByName } from '../../data/authors';
+import BlogPostSchema from '../../components/BlogPostSchema';
 
 // Generate metadata for each blog post
 export async function generateMetadata({ params }) {
@@ -112,5 +113,12 @@ export default async function BlogPostPage({ params }) {
   }
 
   // Pass data as props to client component
-  return <BlogPost post={post} relatedPosts={relatedPosts} />;
+  const authorData = getAuthorByName(post.author);
+  
+  return (
+    <>
+      <BlogPostSchema post={post} author={authorData} />
+      <BlogPost post={post} relatedPosts={relatedPosts} />
+    </>
+  );
 }

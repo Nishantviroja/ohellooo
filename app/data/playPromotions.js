@@ -1,0 +1,25 @@
+// Play Games Promotional Images
+// Add more image URLs here to expand the rotation
+
+export const playPromotions = [
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhVka1CC_nUatvZOB__BJEKB-Y-kqhqOx4qRD-8AmiS74H8jhNDyUcjHYp0wdI0D9OhmYKjyoArh7iNqevYeupE-153TPJutu6348OOsSfzZBgqwB9l30YkN7qmKJXjrMt7g2CNV55eaym8C2k4sUTyBqtzLKiBGto03gLMB1Ic8ftjbQSbadHAHF4H_LY3/s16000/01d600a5-e2f6-4ce4-ab63-dad1ade2c5e7.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhHoa91FYv0FntBIspiDTjTzi_PJVhzY6aJK1rOryzWQHqcRLepnbZ-m3VKsnOA1nPiDrkKBKtbaCOxpet3Pnaqr8uOsfFmOoMRtBxPhOzdEK9AjEGzGh0ZYNlmCe_hugtNDEQEyFXkWnqgZCjWJUj7_yoXHM62lNORLHOYLtIAEnWjGweprvgpLb6cclKy/s16000/3cb1e4eb-b127-4597-b14a-643219aec56a.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhOwyMK3aSx6mxpGR139sO34C16KdAlYK66qkHUKSKtp-lCyA4TAtsgHUQw7QNx5Ws5zHh9UII9OhuOnjLHij2BcXrQUm5FkIjLCEyi075wlkoTewBdgXVHTvfi_u9NNdihWH5ZVapQ2gDwU_GU4x4m6kC1jS3w7eb_qx5Alvlu3dCqMk0UJ1lWQMAYa-uT/s16000/4f2f18bd-c233-4224-92a5-0117ed176b95.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxsYXioY5owBAx2t5LnVG7mzhBZFhieYEcDaqYyJcLRQoMM-AKExVnv0SuqVx_YAUuFT-nqENs1HsjBYh5N9ki0l5dTX4VP3inI7rDVGMsZws24fAfERqaTJRnYrhDKfxQkEgil_Q7SHQcMQ-8xT7KILeh4xdXPGjJN0VssBge1tPclKbdHFsTLZK160b_/s16000/5e35b54b-de52-4403-b480-438021518833.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj1cDaiS5LCXJnfdhIbodr2kNU4wTNWj3ro-474SNAeMrfxwPpNDVOOzTu9PX9hyphenhyphenThk2UvPA2QCHsLsW7oDA5YMNPCF3YEkKp8r0zu5O0odIaejyqs_X7s8VnhRVd2pQFq1xnsNTzBuSxt7iAvUp56S90Tj7M3LSPESRTj1YSjCeMhS39iiuxO2UP1ZTTsn/s1600/6d0fc0e4-d81d-44bd-bd61-6e7405653ec9.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiGy1Tcrcb-JPNbwuo78cxGiZ00C6oryBQb18eHqQoaDiW0bwCaU_gQcvicj-wr8c8D9oSiXc5K6VmkmyKpLwus8i0sBimI0cOzbgHL1NiGs3jUvuaIprbbJ_H85hypSJpwmFslLRwKZCSdpWC7HjQRJSKmaD1g-8x9mfivyAWaFm0X61xbYnaqEK1AvYWy/s1600/7df3730b-9825-4cdc-b1a5-8c7404b00fe2.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg8G2DEcnSlLbTyxWq8GLhyphenhyphenjWOyiw4PtYcBqNO26uWeiO5Vcxm2p2Nnwi3Kklh7WO9fAQufvDIxR6xR51pWwoZDMM8QdkyM7qBcnw9-7c4QUTx_GwQvpqAC5b32IraUTV-HNv72XwZxyd_Wb_beLROlVs_3ITm5XP_jHYigaFkddF5ns1m9EgqeLUBPR1aw/s1600/44ac1341-5f24-4822-bb71-3d55911a56dd.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjtZvqhbHohxoVkmkd-9Kjqo92nFpZXmLTYJtyJm2WPDRrgtUgQhAAIC76zZAHbWqChzELPQ0SGI5GLmYBngjR1O4Cxq1DyR3fsZu91SXiSMRzwRCtF17Hmbf-TMxEzvB5eAKzUqbD3ALLWFpvt7oqNTZ2dyztmJGQWq_7Wu3VTkkXDX8jqM1yQahRwX3zH/s1600/682a6015-c198-4862-b206-ea259489fb95.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhb0XQ5y3KzQnYCZ9UfKX9LRXKWugy4i0ds4VNUYfsv9-u9YQiVorKY8rRCe5mBhYUtDCTIOrM2ykiMDv9_HsMDpdLL6ZRVQXOu1kbyrmdicGdx-_k9IW8rfD6k1HqiMwOVQd0cLz0PK9We1ObYo8PdcW5xDIxrkwU_YCRfYkOfEX6y6cLFW4RvZ2Inya1_/s1600/785c6c25-fc6b-4c7d-bb66-73cd8e5fc40b.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJrvuC8DZg6caKMpCeQDnaxylzRQx9jvIQteF1W4TL7oBJSEXzrnmcSCvYVlLgJ8QKV-QQgOhZPZ9oTQxo34RnXIlpKAGnMEjAJRO0yg_kQ0QG6xEurTnM1woKLXRxsOw5P9w3UjhNlmOrTkpY7o-Zpv-yKcTBiQHGeRrIynrrgbTpQ5mQQY6iFZ4c3rJN/s16000/5607c391-942a-445e-9c94-209af75956c5.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhp7bzHk4ZUCJspQAvWs5PVOloxHzay2gjfmzWfMjX87IAd9pp6V38j2walJ6cBf9nS2iJwni6dF0epQHbSbAno5arp7e1qzQjgOr3s65tAhsVTfBt99qz5lUvY7JzIjKNTlIQRCQjRNJUuNCPnf4a47KPoTZ98hBvVMmWmFsmRYWoZmb3MlnzZzxHAGVrQ/s1600/5917c284-736b-49fd-a5ec-1045b4810e3e.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEieQmlOVU_fzutUEpt5gb82yPPnkoSgD7zkd1WCaZA47v1C9_KNsgflKsHteSKf2WRhalmw9UaMTd0L8pkrc6DaDrj9mIgVdxofvYHLQmpUuA6TKl5OK8YBmuJsWu1d9MpEmiR9-YHxV5rJmspKc9B_6gWpWXhvPJ0KT_Haj3aK5YsmRFyVIvESMuZEGDTD/s1600/488929cc-1d75-4421-9171-0dc1d6c9e1be.webp",
+    "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjaPlZQmQHg76u9ZxYxUyG035DZF0hhtnv9YV8gPFJnNlu9_aHKBp5PRSANxKdXAV87XtvtCO-dL_FmWIrHl1pPUkxVXO0OyCjECd8NQxWd2VVR7Ile6xjJ_w9ls-A7E2bkDpFHpvlduxByMS9Gi_fOsa9AZuq9AD5VUz8yCinSKgz_r2x38c_sWdJ9HV7O/s1600/a1058a90-c6be-4438-8150-69b20ec5a366.webp"
+];
+
+// Function to get a random promotion image
+export const getRandomPromotion = () => {
+  const randomIndex = Math.floor(Math.random() * playPromotions.length);
+  return playPromotions[randomIndex];
+};
+

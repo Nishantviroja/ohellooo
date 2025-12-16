@@ -8,6 +8,7 @@ import HomeBlogSection from '../../components/HomeBlogSection';
 import { notFound } from 'next/navigation';
 import AdInArticle from '../../components/ads/AdInArticle';
 import AdFluid from '../../components/ads/AdFluid';
+import ToolSchema from '../../components/ToolSchema';
 
 const getCategoryFromSeoSlug = (slug) => slug.replace(/-ai-tools$/, '');
 const slugify = (str) => {
@@ -130,6 +131,7 @@ export default async function ToolDetailPage({ params }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
+      <ToolSchema tool={foundTool} />
       <Navbar />
       <main className="flex-grow">
         <div className="container mx-auto md:px-8 md:py-12">

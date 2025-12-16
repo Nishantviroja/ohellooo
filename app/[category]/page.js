@@ -1,6 +1,7 @@
 import { aiTools } from '../data/aiTools';
 import CategoryToolsPage from './category-tools';
 import { notFound } from 'next/navigation';
+import CategorySchema from '../components/CategorySchema';
 
 // Helper to get original category slug from SEO-friendly slug
 function getCategoryFromSlug(slug) {
@@ -91,13 +92,42 @@ export async function generateMetadata({ params }) {
 export default async function CategoryPage({ params }) {
   const { category } = await params;
   const categorySlug = getCategoryFromSlug(category);
-  // Ensure 404 status when category does not exist or has no tools
-  const hasTools = Array.isArray(aiTools) && aiTools.some(tool => {
-    const toolCategorySlug = (tool.category || '').toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
-    return toolCategorySlug === categorySlug;
-  });
-  if (!hasTools) {
+  
+  // Get category name and tool count for schema
+  let originalCategoryName = '';
+  let toolCount = 0;
+  
+  if (Array.isArray(aiTools)) {
+    const categoryTools = aiTools.filter(tool => {
+      const toolCategorySlug = (tool.category || '').toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-');
+      if (toolCategorySlug === categorySlug) {
+        if (!originalCategoryName) {
+          originalCategoryName = tool.category;
+        }
+        toolCount++;
+        return true;
+      }
+      return false;
+    });
+    
+    if (toolCount === 0) {
+      notFound();
+    }
+  } else {
     notFound();
   }
-  return <CategoryToolsPage categorySlug={categorySlug} />;
+  
+  const description = `Discover the best ${originalCategoryName} AI tools in 2025. Browse our curated collection of ${toolCount} ${originalCategoryName.toLowerCase()} tools with reviews, features, and direct links.`;
+  
+  return (
+    <>
+      <CategorySchema 
+        categoryName={originalCategoryName}
+        toolCount={toolCount}
+        description={description}
+        url={`https://fizoval.com/${category}`}
+      />
+      <CategoryToolsPage categorySlug={categorySlug} />
+    </>
+  );
 } 
