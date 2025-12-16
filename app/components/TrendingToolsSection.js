@@ -21,7 +21,7 @@ const TrendingToolsSection = () => {
             Most Popular <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">AI Tools</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover the hottest AI tools that everyone's talking about right now
+            Discover the hottest AI tools that everyone&apos;s talking about right now
           </p>
         </div>
 

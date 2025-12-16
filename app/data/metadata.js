@@ -29,7 +29,6 @@ const siteMetadata = {
       "AI for content creators",
       "AI for marketers",
       "AI automation tools",
-      
       // Long-tail
       "compare AI tools",
       "AI tools reviews",
@@ -37,7 +36,6 @@ const siteMetadata = {
       "generative AI tools",
       "ChatGPT alternatives",
       "Midjourney alternatives",
-      
       // Branded
       "Fizoval",
       "Fizoval AI directory"

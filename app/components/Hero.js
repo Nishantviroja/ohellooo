@@ -41,7 +41,7 @@ const Hero = () => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200"
             >
               <span className="text-2xl">✨</span>
-              <span className="text-sm font-semibold text-gray-700">The World's Largest AI Tools Directory</span>
+              <span className="text-sm font-semibold text-gray-700">The World&apos;s Largest AI Tools Directory</span>
            </motion.div> 
            
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight">
