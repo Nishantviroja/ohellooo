@@ -4,27 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-// Linear-Style Hero - Split Layout with 3D Floating Cards
+// Linear-Style Hero - Split Layout with Lightweight Bento Grid
 const Hero = () => {
-  const popularTools = [
-    // Ring 1 - Inner (3 cards - same size)
-    { name: 'ChatGPT', icon: '🤖', color: 'bg-green-100' },
-    { name: 'Midjourney', icon: '🎨', color: 'bg-purple-100' },
-    { name: 'DALL-E', icon: '🖼️', color: 'bg-orange-100' },
-    
-    // Ring 2 - Middle (4 cards - smaller size)
-    { name: 'Claude', icon: '🧠', color: 'bg-indigo-100' },
-    { name: 'Copy.ai', icon: '✍️', color: 'bg-blue-100' },
-    { name: 'Runway', icon: '🎬', color: 'bg-red-100' },
-    { name: 'Jasper', icon: '💎', color: 'bg-pink-100' },
-    
-    // Ring 3 - Outer (5 cards - same size as Ring 1)
-    { name: 'Grammarly', icon: '✏️', color: 'bg-cyan-100' },
-    { name: 'GitHub Copilot', icon: '💻', color: 'bg-teal-100' },
-    { name: 'Synthesia', icon: '🎥', color: 'bg-rose-100' },
-    { name: 'Murf AI', icon: '🎙️', color: 'bg-lime-100' },
-    { name: 'Beautiful.ai', icon: '📊', color: 'bg-amber-100' },
-  ];
 
   return (
     <div className="relative h-[90vh] overflow-hidden bg-white">
@@ -82,183 +63,88 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Right Visual - CRAZY ANIMATED ORBITALS */}
+          {/* Right Visual - Lightweight Bento Grid */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="relative hidden lg:flex items-center justify-center z-10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative hidden lg:block w-full max-w-lg z-10"
           >
-            <div className="relative w-[900px] h-[900px] z-10">
+            <div className="grid grid-cols-3 gap-4 h-[600px]">
               
-              {/* Orbital Rings (Decorative) - Render FIRST so they appear behind cards */}
-              
-              {/* Ring 1 Orbit */}
+              {/* Large Card - Top Left */}
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[375px] h-[375px] rounded-full border-2 border-dashed border-blue-300 opacity-10 z-0"
-              ></motion.div>
-              
-              {/* Ring 2 Orbit */}
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] h-[560px] rounded-full border-2 border-dotted border-purple-300 opacity-10 z-0"
-              ></motion.div>
-              
-              {/* Ring 3 Orbit */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[850px] rounded-full border-2 border-dashed border-pink-300 opacity-10 z-0"
-              ></motion.div>
-
-              {/* Center Glowing Orb */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-15">
-                <motion.div
-                  animate={{ 
-                    scale: [1, 1.2, 1],
-                    rotate: 360
-                  }}
-                  transition={{ 
-                    scale: { duration: 4, repeat: Infinity, ease: "easeInOut" },
-                    rotate: { duration: 20, repeat: Infinity, ease: "linear" }
-                  }}
-                  className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 blur-3xl opacity-60"
-                ></motion.div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-4xl shadow-2xl border-4 border-white">
-                  🤖
+                whileHover={{ scale: 1.05 }}
+                className="col-span-2 row-span-2 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-6 shadow-lg border border-blue-200 flex flex-col justify-between"
+              >
+                <div className="text-5xl mb-4">🤖</div>
+                <div>
+                  <h3 className="font-bold text-xl text-gray-900 mb-2">AI Writing</h3>
+                  <p className="text-sm text-gray-600">50+ Tools</p>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Orbiting Elements - Ring 1 (Inner) - 3 cards - Same Size */}
-              {[0, 1, 2].map((i) => (
-                <motion.div
-                  key={`ring1-${i}`}
-                  animate={{ 
-                    rotate: 360,
-                  }}
-                  transition={{ 
-                    duration: 12,
-                    repeat: Infinity,
-                    ease: "linear",
-                    delay: i * (12 / 3)
-                  }}
-                  className="absolute top-1/2 left-1/2 w-[375px] h-[375px] -ml-[188px] -mt-[188px] z-20"
-                  style={{ transformOrigin: 'center' }}
-                >
-                  <motion.div
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      y: [0, -5, 0]
-                    }}
-                    transition={{ 
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: i * 0.3
-                    }}
-                    className={`w-16 h-16 ${popularTools[i]?.color || 'bg-blue-100'} rounded-2xl shadow-xl border-2 border-white flex items-center justify-center text-3xl absolute top-0 left-1/2 -ml-8`}
-                  >
-                    {popularTools[i]?.icon || '⭐'}
-                  </motion.div>
-                </motion.div>
-              ))}
+              {/* Small Card - Top Right */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                animate={{ y: [0, -10, 0] }}
+                transition={{ y: { duration: 3, repeat: Infinity, ease: "easeInOut" } }}
+                className="bg-gradient-to-br from-purple-50 to-pink-100 rounded-3xl p-4 shadow-lg border border-purple-200 flex flex-col justify-center items-center"
+              >
+                <div className="text-4xl">🎨</div>
+                <p className="text-xs font-semibold text-gray-700 mt-2">Design</p>
+              </motion.div>
 
-              {/* Orbiting Elements - Ring 2 (Middle) - 4 cards - Smaller Size */}
-              {[3, 4, 5, 6].map((i, index) => (
-                <motion.div
-                  key={`ring2-${i}`}
-                  animate={{ 
-                    rotate: -360,
-                  }}
-                  transition={{ 
-                    duration: 18,
-                    repeat: Infinity,
-                    ease: "linear",
-                    delay: index * (18 / 4)
-                  }}
-                  className="absolute top-1/2 left-1/2 w-[560px] h-[560px] -ml-[280px] -mt-[280px] z-20"
-                  style={{ transformOrigin: 'center' }}
-                >
-                  <motion.div
-                    animate={{ 
-                      scale: [1, 1.3, 1],
-                      rotate: 360
-                    }}
-                    transition={{ 
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: index * 0.4,
-                      rotate: { duration: 8, repeat: Infinity, ease: "linear" }
-                    }}
-                    className={`w-12 h-12 ${popularTools[i]?.color || 'bg-purple-100'} rounded-xl shadow-xl border-2 border-white flex items-center justify-center text-2xl absolute top-0 left-1/2 -ml-6`}
-                  >
-                    {popularTools[i]?.icon || '✨'}
-                  </motion.div>
-                </motion.div>
-              ))}
+              {/* Small Card - Middle Right */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                animate={{ y: [0, 10, 0] }}
+                transition={{ y: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 } }}
+                className="bg-gradient-to-br from-orange-50 to-red-100 rounded-3xl p-4 shadow-lg border border-orange-200 flex flex-col justify-center items-center"
+              >
+                <div className="text-4xl">📹</div>
+                <p className="text-xs font-semibold text-gray-700 mt-2">Video</p>
+              </motion.div>
 
-              {/* Orbiting Elements - Ring 3 (Outer) - 5 cards - Same Size as Ring 1 */}
-              {[7, 8, 9, 10, 11].map((i, index) => (
-                <motion.div
-                  key={`ring3-${i}`}
-                  animate={{ 
-                    rotate: 360,
-                  }}
-                  transition={{ 
-                    duration: 24,
-                    repeat: Infinity,
-                    ease: "linear",
-                    delay: index * (24 / 5)
-                  }}
-                  className="absolute top-1/2 left-1/2 w-[850px] h-[850px] -ml-[425px] -mt-[425px] z-20"
-                  style={{ transformOrigin: 'center' }}
-                >
-                  <motion.div
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      y: [0, -8, 0]
-                    }}
-                    transition={{ 
-                      duration: 3.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: index * 0.5
-                    }}
-                    className={`w-16 h-16 ${popularTools[i]?.color || 'bg-cyan-100'} rounded-2xl shadow-xl border-2 border-white flex items-center justify-center text-3xl absolute top-0 left-1/2 -ml-8`}
-                  >
-                    {popularTools[i]?.icon || '💫'}
-                  </motion.div>
-                </motion.div>
-              ))}
+              {/* Medium Card - Bottom Left */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="col-span-1 row-span-2 bg-gradient-to-br from-green-50 to-emerald-100 rounded-3xl p-6 shadow-lg border border-green-200 flex flex-col justify-between"
+              >
+                <div className="text-4xl mb-4">💻</div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900 mb-1">Code</h3>
+                  <p className="text-xs text-gray-600">30+ Tools</p>
+                </div>
+              </motion.div>
 
-              {/* Floating Particles */}
-              {[...Array(8)].map((_, i) => (
-                <motion.div
-                  key={`particle-${i}`}
-                  animate={{ 
-                    y: [0, -30, 0],
-                    x: [0, Math.sin(i) * 20, 0],
-                    opacity: [0.2, 0.6, 0.2],
-                  }}
-                  transition={{ 
-                    duration: 3 + i * 0.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.3
-                  }}
-                  className="absolute w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-400"
-                  style={{
-                    top: `${20 + (i * 10)}%`,
-                    left: `${15 + (i * 8)}%`,
-                  }}
-                ></motion.div>
-              ))}
+              {/* Medium Card - Bottom Middle */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="col-span-2 bg-gradient-to-br from-cyan-50 to-blue-100 rounded-3xl p-6 shadow-lg border border-cyan-200 flex items-center gap-4"
+              >
+                <div className="text-4xl">📊</div>
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">Analytics</h3>
+                  <p className="text-xs text-gray-600">25+ Tools</p>
+                </div>
+              </motion.div>
+
+              {/* Small Card - Bottom Right */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                animate={{ y: [0, -8, 0] }}
+                transition={{ y: { duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 1 } }}
+                className="bg-gradient-to-br from-yellow-50 to-amber-100 rounded-3xl p-4 shadow-lg border border-yellow-200 flex flex-col justify-center items-center"
+              >
+                <div className="text-4xl">🎵</div>
+                <p className="text-xs font-semibold text-gray-700 mt-2">Audio</p>
+              </motion.div>
 
             </div>
+
+            {/* Subtle Gradient Blob */}
+            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 rounded-full blur-3xl opacity-20"></div>
           </motion.div>
 
         </div>
