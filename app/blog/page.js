@@ -5,7 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import BlogCard from '../components/BlogCard';
 import AdFluid from '../components/ads/AdFluid';
-import BlogSchema from '../components/BlogSchema';
+import BlogSchema from '../schema/BlogSchema';
 
 export function generateMetadata() {
   const base = siteMetadata.blog || {};

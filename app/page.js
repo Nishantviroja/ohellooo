@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import CategoriesGrid from './components/CategoriesGrid';
 import HomeToolsSection from './components/HomeToolsSection';
 import HomeBlogSection from './components/HomeBlogSection';
-import HomeSchema from './components/HomeSchema';
+import HomeSchema from './schema/HomeSchema';
 import TrendingToolsSection from './components/TrendingToolsSection';
 import HowItWorksSection from './components/HowItWorksSection';
 import RecentlyAddedSection from './components/RecentlyAddedSection';

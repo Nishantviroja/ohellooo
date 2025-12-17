@@ -8,7 +8,7 @@ import HomeBlogSection from '../../components/HomeBlogSection';
 import { notFound } from 'next/navigation';
 import AdInArticle from '../../components/ads/AdInArticle';
 import AdFluid from '../../components/ads/AdFluid';
-import ToolSchema from '../../components/ToolSchema';
+import ToolSchema from '../../schema/ToolSchema';
 
 const getCategoryFromSeoSlug = (slug) => slug.replace(/-ai-tools$/, '');
 const slugify = (str) => {

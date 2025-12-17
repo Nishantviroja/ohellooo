@@ -94,63 +94,7 @@ export default function HomeSchema() {
       "itemListOrder": "https://schema.org/ItemListOrderDescending"
     },
 
-    // 6. FAQPage Schema
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is Fizoval?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Fizoval is the world's largest AI tools directory featuring over 5000+ curated AI tools across 120+ categories. We help creators, developers, marketers, and businesses discover the best AI tools for their specific needs."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How many AI tools are listed on Fizoval?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Fizoval features over 5000+ handpicked AI tools across 120+ categories including productivity, marketing, development, design, content creation, and more."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Are all AI tools on Fizoval free?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Fizoval features a mix of free, freemium, and paid AI tools. Each tool listing clearly displays its pricing model so you can find tools that fit your budget."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How often is Fizoval updated?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Fizoval is updated daily with new AI tools and features. We continuously curate and add the latest AI innovations to keep you ahead in the AI revolution."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I submit my AI tool to Fizoval?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes! Fizoval welcomes AI tool submissions. Visit our submission page or contact us to get your AI tool featured in our directory."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What categories of AI tools does Fizoval cover?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Fizoval covers 120+ categories including productivity, generative art, text-to-speech, music, video generation, marketing, SEO, social media, writing, development, data analysis, customer support, design, education, and many more."
-          }
-        }
-      ]
-    },
-
-    // 7. CollectionPage Schema
+    // 6. CollectionPage Schema
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
@@ -168,12 +112,13 @@ export default function HomeSchema() {
       }
     },
 
-    // 8. Product Schema (for Fizoval Platform)
+    // 7. Product Schema (for Fizoval Platform)
     {
       "@context": "https://schema.org",
       "@type": "Product",
       "name": "Fizoval AI Tools Directory",
       "description": "Discover and compare 5000+ AI tools across 120+ categories",
+      "image": "https://fizoval.com/Fizoval.png",
       "brand": {
         "@type": "Brand",
         "name": "Fizoval"
@@ -183,7 +128,8 @@ export default function HomeSchema() {
         "price": "0",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://fizoval.com"
+        "url": "https://fizoval.com",
+        "priceValidUntil": "2025-12-31"
       },
       "aggregateRating": {
         "@type": "AggregateRating",

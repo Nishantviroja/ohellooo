@@ -1,7 +1,7 @@
 import { aiTools } from '../data/aiTools';
 import CategoryToolsPage from './category-tools';
 import { notFound } from 'next/navigation';
-import CategorySchema from '../components/CategorySchema';
+import CategorySchema from '../schema/CategorySchema';
 
 // Helper to get original category slug from SEO-friendly slug
 function getCategoryFromSlug(slug) {

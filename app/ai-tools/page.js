@@ -1,5 +1,6 @@
 import siteMetadata from '../data/metadata';
 import CategoryToolsPage from '../[category]/category-tools';
+import AIToolsSchema from '../schema/AIToolsSchema';
 
 export const metadata = {
   ...(siteMetadata.aiTools || {}),
@@ -11,5 +12,10 @@ export const metadata = {
 };
 
 export default function AIToolsPage() {
-  return <CategoryToolsPage categorySlug={'all'} />;
+  return (
+    <>
+      <AIToolsSchema />
+      <CategoryToolsPage categorySlug={'all'} />
+    </>
+  );
 }

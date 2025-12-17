@@ -52,7 +52,7 @@ const PlayPromoModal = () => {
 
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden animate-fadeIn">
+        <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden animate-fadeIn">
           {/* Close Button */}
           <button
             onClick={handleClose}
@@ -72,16 +72,16 @@ const PlayPromoModal = () => {
             <img
               src={promoImage}
               alt="Play Games Promotion"
-              className="w-full h-auto"
+              className="w-auto h-auto"
             />
           </div>
 
           {/* Text and Button Below Image (Always Visible) */}
-          <div className="p-6 bg-gradient-to-r from-blue-50 to-purple-50">
-            <p className="text-center text-gray-700 mb-4 text-base md:text-lg">{PROMO_TITLE}</p>
+          <div className="p-6 pt-3 bg-gradient-to-r from-blue-50 to-purple-50">
+            <p className="text-center text-gray-700 mb-4 text-base md:text-lg">Need a quick break?</p>
             <button
               onClick={handleClick}
-              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full font-bold transition-all duration-300 shadow-lg hover:shadow-xl cursor-pointer"
             >
               {BUTTON_TEXT}
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

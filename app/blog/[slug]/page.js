@@ -2,7 +2,7 @@ import { fetchBlogPosts } from '../../data/blogPosts';
 import BlogPost from './blogPost';
 import { notFound } from 'next/navigation';
 import { getAuthorByName } from '../../data/authors';
-import BlogPostSchema from '../../components/BlogPostSchema';
+import BlogPostSchema from '../../schema/BlogPostSchema';
 
 // Generate metadata for each blog post
 export async function generateMetadata({ params }) {
