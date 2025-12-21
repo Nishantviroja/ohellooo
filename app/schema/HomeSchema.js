@@ -118,7 +118,10 @@ export default function HomeSchema() {
       "@type": "Product",
       "name": "Fizoval AI Tools Directory",
       "description": "Discover and compare 5000+ AI tools across 120+ categories",
-      "image": "https://fizoval.com/Fizoval.png",
+      "image": [
+        "https://fizoval.com/Fizoval.png",
+        "https://fizoval.com/FeaturingIMG.png"
+      ],
       "brand": {
         "@type": "Brand",
         "name": "Fizoval"
@@ -129,7 +132,42 @@ export default function HomeSchema() {
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
         "url": "https://fizoval.com",
-        "priceValidUntil": "2025-12-31"
+        "priceValidUntil": "2026-12-31",
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": "US",
+          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+          "merchantReturnDays": 0,
+          "returnMethod": "https://schema.org/ReturnByMail",
+          "returnFees": "https://schema.org/FreeReturn"
+        },
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "USD"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": "US"
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 0,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 0,
+              "unitCode": "DAY"
+            }
+          }
+        }
       },
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -153,4 +191,6 @@ export default function HomeSchema() {
     </>
   );
 }
+
+
 

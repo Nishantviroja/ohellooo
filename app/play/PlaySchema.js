@@ -119,61 +119,50 @@ export default function PlaySchema() {
       "price": "0",
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock",
-      "priceValidUntil": "2025-12-31",
+      "priceValidUntil": "2026-12-31",
+      "image": "https://fizoval.com/FeaturingIMG.png",
+      "hasMerchantReturnPolicy": {
+        "@type": "MerchantReturnPolicy",
+        "applicableCountry": "US",
+        "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+        "merchantReturnDays": 0,
+        "returnMethod": "https://schema.org/ReturnByMail",
+        "returnFees": "https://schema.org/FreeReturn"
+      },
+      "shippingDetails": {
+        "@type": "OfferShippingDetails",
+        "shippingRate": {
+          "@type": "MonetaryAmount",
+          "value": "0",
+          "currency": "USD"
+        },
+        "shippingDestination": {
+          "@type": "DefinedRegion",
+          "addressCountry": "US"
+        },
+        "deliveryTime": {
+          "@type": "ShippingDeliveryTime",
+          "handlingTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 0,
+            "maxValue": 0,
+            "unitCode": "DAY"
+          },
+          "transitTime": {
+            "@type": "QuantitativeValue",
+            "minValue": 0,
+            "maxValue": 0,
+            "unitCode": "DAY"
+          }
+        }
+      },
       "itemOffered": {
         "@type": "Product",
         "name": "Free Online Games Collection",
         "description": "238+ free browser games",
-        "category": "Entertainment"
+        "category": "Entertainment",
+        "image": "https://fizoval.com/FeaturingIMG.png"
       }
-    },
-    
-    // 5. FAQPage Schema
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Are these games really free?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes! All 238+ games are 100% free to play. No subscriptions, no hidden costs, no payments required."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need to download anything?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No downloads needed! All games run directly in your browser using HTML5 technology. Just click and play instantly."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I play on mobile?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Absolutely! All games are mobile-friendly and work on smartphones, tablets, and desktop computers."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need to create an account?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No signup required! You can start playing immediately without creating any account."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What types of games are available?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "We offer 238+ games across multiple categories: Puzzle & Logic, Action, Arcade, Sports & Racing, Strategy, and Card Games."
-          }
-        }
-      ]
     },
     
     // 6. Organization Schema

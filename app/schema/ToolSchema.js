@@ -12,9 +12,10 @@ export default function ToolSchema({ tool }) {
       "@type": "Offer",
       "price": tool.pricing_model === 'Free' ? "0" : undefined,
       "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2026-12-31"
     },
-    "image": tool.image_url,
+    "image": tool.image_url || "https://fizoval.com/FeaturingIMG.png",
     "url": tool.external_link,
     "publisher": {
       "@type": "Organization",
@@ -37,4 +38,6 @@ export default function ToolSchema({ tool }) {
     />
   );
 }
+
+
 
